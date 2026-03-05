@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class StreetAuctionApp extends StatelessWidget {
-  const StreetAuctionApp({super.key});
+class LiveAuctionApp extends StatelessWidget {
+  const LiveAuctionApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      title: 'Live Auction',
       debugShowCheckedModeBanner: false,
       home: Scaffold(),
     );
