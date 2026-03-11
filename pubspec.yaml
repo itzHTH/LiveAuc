@@ -62,6 +62,8 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   # Responsive Design
   flutter_screenutil: ^5.9.3
+  # Fonts
+  google_fonts: ^8.0.2
 
 dev_dependencies:
   # Code Generation
