@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:street_auction/core/widgets/animated_slider.dart';
 import 'package:street_auction/features/auth/screens/auth_screen.dart';
 import 'package:street_auction/features/onborading/models/page_model.dart';
-import 'package:street_auction/features/onborading/widgets/onboarding_page.dart';
+import 'package:street_auction/features/onborading/widgets/onboarding_page_builder.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -54,40 +54,49 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 32.h, horizontal: 16.w),
+          padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
           child: Column(
             children: [
+              /// Animated Slider To Show Current Page
               AnimatedSlider(
                 currentPage: _currentPage,
                 totalPages: pages.length,
               ),
+
               SizedBox(height: 60.h),
 
+              /// Onboarding Page Builder To Show Onboarding Pages
               Expanded(
-                child: PageView.builder(
+                child: OnboardingPageBuilder(
+                  pages: pages,
+                  pageController: _pageController,
                   onPageChanged: (index) {
                     setState(() {
                       _currentPage = index;
                     });
                   },
-                  controller: _pageController,
-                  itemCount: pages.length,
-                  itemBuilder: (context, index) =>
-                      OnboardingPage(pages: pages[index]),
                 ),
               ),
               SizedBox(height: 24.h),
+
+              /// Next Button To Navigate To Next Page Or Finish
               ElevatedButton(
                 onPressed: _currentPage == pages.length - 1
                     ? _handleFinish
                     : _handleNext,
-                child: _currentPage == pages.length - 1
-                    ? const Text('Start')
-                    : const Text('Next'),
+                child: Text(
+                  _currentPage == pages.length - 1 ? 'Start' : 'Next',
+                ),
               ),
             ],
           ),
