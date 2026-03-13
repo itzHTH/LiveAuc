@@ -9,6 +9,7 @@ class AppColor {
   static const Color uiGray = Color(0xFF727272);
   static const Color uiWhite = Color(0xFFFFFFFF);
   static const Color uiDisabled = Color(0xFFE0E0E0);
+  static const Color uiDisabledPageBar = Color(0xFF050505);
 
   static const Color screenBackground = Color(0xFFFAFAFA);
   static const Color elementBackground = Color(0xFFFFFFFF);
