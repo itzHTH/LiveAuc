@@ -14,4 +14,10 @@ class Styels {
     fontWeight: FontWeight.w400,
     color: AppColor.uiGray,
   );
+
+  static TextStyle? font18WhiteMedium = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColor.uiWhite,
+  );
 }

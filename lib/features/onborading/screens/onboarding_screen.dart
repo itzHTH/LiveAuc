@@ -63,6 +63,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       OnboardingPage(pages: pages[index]),
                 ),
               ),
+              SizedBox(height: 24.h),
+              ElevatedButton(onPressed: () {}, child: const Text('Next')),
             ],
           ),
         ),
