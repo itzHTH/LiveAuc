@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:street_auction/core/widgets/animated_slider.dart';
+import 'package:street_auction/features/auth/screens/auth_screen.dart';
 import 'package:street_auction/features/onborading/models/page_model.dart';
 import 'package:street_auction/features/onborading/widgets/onboarding_page.dart';
 
@@ -36,6 +37,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ),
   ];
 
+  void _handleNext() {
+    if (_currentPage < pages.length - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    }
+  }
+
+  void _handleFinish() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AuthScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +81,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               SizedBox(height: 24.h),
-              ElevatedButton(onPressed: () {}, child: const Text('Next')),
+              ElevatedButton(
+                onPressed: _currentPage == pages.length - 1
+                    ? _handleFinish
+                    : _handleNext,
+                child: _currentPage == pages.length - 1
+                    ? const Text('Start')
+                    : const Text('Next'),
+              ),
             ],
           ),
         ),
