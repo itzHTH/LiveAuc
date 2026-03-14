@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/features/auth/screens/auth_main_screen.dart';
+import 'package:street_auction/features/auth/screens/login_screen.dart';
 import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
 
 class AppRouter {
@@ -12,6 +13,8 @@ class AppRouter {
         );
       case AppRoutes.auth:
         return MaterialPageRoute(builder: (context) => const AuthMainScreen());
+      case AppRoutes.login:
+        return MaterialPageRoute(builder: (context) => const LoginScreen());
       default:
         return MaterialPageRoute(
           builder: (context) => const OnboardingScreen(),

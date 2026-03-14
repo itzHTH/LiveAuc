@@ -24,6 +24,7 @@ class AppTheme {
           minimumSize: Size(double.infinity, 50.h),
         ),
       ),
+
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColor.uiBlack,
@@ -35,6 +36,29 @@ class AppTheme {
           padding: EdgeInsets.symmetric(vertical: 20.h),
           minimumSize: Size(double.infinity, 50.h),
         ),
+      ),
+
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: const BorderSide(color: AppColor.uiGray, width: 1),
+        ),
+
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: const BorderSide(color: AppColor.uiBlack, width: 1.6),
+        ),
+
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: const BorderSide(color: AppColor.alertError, width: 1.6),
+        ),
+
+        errorStyle: AppTextStyles.font16RedRegular,
+
+        hintStyle: AppTextStyles.font16GrayRegular,
+
+        labelStyle: AppTextStyles.font16BlackRegular,
       ),
     );
   }

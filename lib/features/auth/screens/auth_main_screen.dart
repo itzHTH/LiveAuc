@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:street_auction/core/helpers/navigation_extension.dart';
+import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
 
 class AuthMainScreen extends StatelessWidget {
@@ -22,7 +24,12 @@ class AuthMainScreen extends StatelessWidget {
                 SizedBox(height: 60.h),
                 ElevatedButton(onPressed: () {}, child: const Text('Register')),
                 SizedBox(height: 16.h),
-                OutlinedButton(onPressed: () {}, child: const Text('Sign In')),
+                OutlinedButton(
+                  onPressed: () {
+                    context.pushNamed(AppRoutes.login);
+                  },
+                  child: const Text('Sign In'),
+                ),
               ],
             ),
           ),

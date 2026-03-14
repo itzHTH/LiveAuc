@@ -21,6 +21,36 @@ class AppTextStyles {
     color: AppColor.uiGray,
   );
 
+  static TextStyle? font16GrayRegular = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColor.uiGray,
+  );
+
+  static TextStyle? font16BlackRegular = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColor.uiBlack,
+  );
+
+  static TextStyle? font16RedRegular = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColor.alertError,
+  );
+
+  static TextStyle? font14BlackMedium = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColor.uiBlack,
+  );
+
+  static TextStyle? font14Primary500Medium = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColor.primary500,
+  );
+
   static TextStyle? font18WhiteMedium = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
