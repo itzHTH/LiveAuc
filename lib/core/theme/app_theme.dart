@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:street_auction/core/theme/app_color.dart';
-import 'package:street_auction/core/theme/styels.dart';
+import 'package:street_auction/core/theme/app_text_styles.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -19,7 +19,19 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r),
           ),
-          textStyle: Styels.font18WhiteMedium,
+          textStyle: AppTextStyles.font18WhiteMedium,
+          padding: EdgeInsets.symmetric(vertical: 20.h),
+          minimumSize: Size(double.infinity, 50.h),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColor.uiBlack,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
+            side: const BorderSide(color: AppColor.uiBlack, width: 1),
+          ),
+          textStyle: AppTextStyles.font18WhiteMedium,
           padding: EdgeInsets.symmetric(vertical: 20.h),
           minimumSize: Size(double.infinity, 50.h),
         ),
