@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:street_auction/core/routing/app_router.dart';
+import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/theme/app_theme.dart';
-import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
 
 class LiveAuctionApp extends StatelessWidget {
   const LiveAuctionApp({super.key, required this.appRouter});
@@ -16,7 +16,7 @@ class LiveAuctionApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         title: 'Live Auction',
         debugShowCheckedModeBanner: false,
-        home: const OnboardingScreen(),
+        initialRoute: AppRoutes.onboarding,
         theme: AppTheme.lightTheme,
         onGenerateRoute: appRouter.onGenerateRoute,
       ),

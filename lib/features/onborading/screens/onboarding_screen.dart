@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/widgets/animated_slider.dart';
-import 'package:street_auction/features/auth/screens/auth_screen.dart';
 import 'package:street_auction/features/onborading/models/page_model.dart';
 import 'package:street_auction/features/onborading/widgets/onboarding_page_builder.dart';
 
@@ -47,10 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _handleFinish() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AuthScreen()),
-    );
+    Navigator.pushNamed(context, AppRoutes.auth);
   }
 
   @override
