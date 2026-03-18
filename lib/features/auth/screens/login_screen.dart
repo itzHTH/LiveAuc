@@ -100,6 +100,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: AppTextStyles.font14Primary500Medium,
                     ),
                   ),
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      // TODO: Navigate to Forgot Password Screen
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: AppTextStyles.font14Primary500Medium,
+                    ),
+                  ),
                 ],
               ),
             ],
