@@ -12,7 +12,7 @@ part of 'register_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$RegisterState<T> {
+mixin _$RegisterState {
 
 
 
@@ -20,7 +20,7 @@ mixin _$RegisterState<T> {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegisterState<T>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegisterState);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RegisterState<$T>()';
+  return 'RegisterState()';
 }
 
 
 }
 
 /// @nodoc
-class $RegisterStateCopyWith<T,$Res>  {
-$RegisterStateCopyWith(RegisterState<T> _, $Res Function(RegisterState<T>) __);
+class $RegisterStateCopyWith<$Res>  {
+$RegisterStateCopyWith(RegisterState _, $Res Function(RegisterState) __);
 }
 
 
 /// Adds pattern-matching-related methods to [RegisterState].
-extension RegisterStatePatterns<T> on RegisterState<T> {
+extension RegisterStatePatterns on RegisterState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -55,13 +55,15 @@ extension RegisterStatePatterns<T> on RegisterState<T> {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( Loading<T> value)?  loading,TResult Function( Success<T> value)?  success,TResult Function( Error<T> value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( OtpSent value)?  otpSent,TResult Function( VerifyOtpSuccess value)?  verifyOtpSuccess,TResult Function( RegisterSuccess value)?  registerSuccess,TResult Function( Error value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
-return loading(_that);case Success() when success != null:
-return success(_that);case Error() when error != null:
+return loading(_that);case OtpSent() when otpSent != null:
+return otpSent(_that);case VerifyOtpSuccess() when verifyOtpSuccess != null:
+return verifyOtpSuccess(_that);case RegisterSuccess() when registerSuccess != null:
+return registerSuccess(_that);case Error() when error != null:
 return error(_that);case _:
   return orElse();
 
@@ -80,13 +82,15 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( Loading<T> value)  loading,required TResult Function( Success<T> value)  success,required TResult Function( Error<T> value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( OtpSent value)  otpSent,required TResult Function( VerifyOtpSuccess value)  verifyOtpSuccess,required TResult Function( RegisterSuccess value)  registerSuccess,required TResult Function( Error value)  error,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case Loading():
-return loading(_that);case Success():
-return success(_that);case Error():
+return loading(_that);case OtpSent():
+return otpSent(_that);case VerifyOtpSuccess():
+return verifyOtpSuccess(_that);case RegisterSuccess():
+return registerSuccess(_that);case Error():
 return error(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -104,13 +108,15 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( Loading<T> value)?  loading,TResult? Function( Success<T> value)?  success,TResult? Function( Error<T> value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( OtpSent value)?  otpSent,TResult? Function( VerifyOtpSuccess value)?  verifyOtpSuccess,TResult? Function( RegisterSuccess value)?  registerSuccess,TResult? Function( Error value)?  error,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
-return loading(_that);case Success() when success != null:
-return success(_that);case Error() when error != null:
+return loading(_that);case OtpSent() when otpSent != null:
+return otpSent(_that);case VerifyOtpSuccess() when verifyOtpSuccess != null:
+return verifyOtpSuccess(_that);case RegisterSuccess() when registerSuccess != null:
+return registerSuccess(_that);case Error() when error != null:
 return error(_that);case _:
   return null;
 
@@ -128,12 +134,14 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T auth)?  success,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  otpSent,TResult Function( String registerToken)?  verifyOtpSuccess,TResult Function( Auth auth)?  registerSuccess,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
-return loading();case Success() when success != null:
-return success(_that.auth);case Error() when error != null:
+return loading();case OtpSent() when otpSent != null:
+return otpSent();case VerifyOtpSuccess() when verifyOtpSuccess != null:
+return verifyOtpSuccess(_that.registerToken);case RegisterSuccess() when registerSuccess != null:
+return registerSuccess(_that.auth);case Error() when error != null:
 return error(_that.error);case _:
   return orElse();
 
@@ -152,12 +160,14 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T auth)  success,required TResult Function( String error)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  otpSent,required TResult Function( String registerToken)  verifyOtpSuccess,required TResult Function( Auth auth)  registerSuccess,required TResult Function( String error)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case Loading():
-return loading();case Success():
-return success(_that.auth);case Error():
+return loading();case OtpSent():
+return otpSent();case VerifyOtpSuccess():
+return verifyOtpSuccess(_that.registerToken);case RegisterSuccess():
+return registerSuccess(_that.auth);case Error():
 return error(_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +185,14 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T auth)?  success,TResult? Function( String error)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  otpSent,TResult? Function( String registerToken)?  verifyOtpSuccess,TResult? Function( Auth auth)?  registerSuccess,TResult? Function( String error)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
-return loading();case Success() when success != null:
-return success(_that.auth);case Error() when error != null:
+return loading();case OtpSent() when otpSent != null:
+return otpSent();case VerifyOtpSuccess() when verifyOtpSuccess != null:
+return verifyOtpSuccess(_that.registerToken);case RegisterSuccess() when registerSuccess != null:
+return registerSuccess(_that.auth);case Error() when error != null:
 return error(_that.error);case _:
   return null;
 
@@ -192,7 +204,7 @@ return error(_that.error);case _:
 /// @nodoc
 
 
-class _Initial<T> implements RegisterState<T> {
+class _Initial implements RegisterState {
   const _Initial();
   
 
@@ -203,7 +215,7 @@ class _Initial<T> implements RegisterState<T> {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial<T>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
 }
 
 
@@ -212,7 +224,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RegisterState<$T>.initial()';
+  return 'RegisterState.initial()';
 }
 
 
@@ -224,7 +236,7 @@ String toString() {
 /// @nodoc
 
 
-class Loading<T> implements RegisterState<T> {
+class Loading implements RegisterState {
   const Loading();
   
 
@@ -235,7 +247,7 @@ class Loading<T> implements RegisterState<T> {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading<T>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading);
 }
 
 
@@ -244,7 +256,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RegisterState<$T>.loading()';
+  return 'RegisterState.loading()';
 }
 
 
@@ -256,43 +268,75 @@ String toString() {
 /// @nodoc
 
 
-class Success<T> implements RegisterState<T> {
-  const Success(this.auth);
+class OtpSent implements RegisterState {
+  const OtpSent();
   
 
- final  T auth;
 
-/// Create a copy of RegisterState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$SuccessCopyWith<T, Success<T>> get copyWith => _$SuccessCopyWithImpl<T, Success<T>>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success<T>&&const DeepCollectionEquality().equals(other.auth, auth));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OtpSent);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(auth));
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RegisterState<$T>.success(auth: $auth)';
+  return 'RegisterState.otpSent()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class VerifyOtpSuccess implements RegisterState {
+  const VerifyOtpSuccess(this.registerToken);
+  
+
+ final  String registerToken;
+
+/// Create a copy of RegisterState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VerifyOtpSuccessCopyWith<VerifyOtpSuccess> get copyWith => _$VerifyOtpSuccessCopyWithImpl<VerifyOtpSuccess>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyOtpSuccess&&(identical(other.registerToken, registerToken) || other.registerToken == registerToken));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,registerToken);
+
+@override
+String toString() {
+  return 'RegisterState.verifyOtpSuccess(registerToken: $registerToken)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SuccessCopyWith<T,$Res> implements $RegisterStateCopyWith<T, $Res> {
-  factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) _then) = _$SuccessCopyWithImpl;
+abstract mixin class $VerifyOtpSuccessCopyWith<$Res> implements $RegisterStateCopyWith<$Res> {
+  factory $VerifyOtpSuccessCopyWith(VerifyOtpSuccess value, $Res Function(VerifyOtpSuccess) _then) = _$VerifyOtpSuccessCopyWithImpl;
 @useResult
 $Res call({
- T auth
+ String registerToken
 });
 
 
@@ -300,19 +344,19 @@ $Res call({
 
 }
 /// @nodoc
-class _$SuccessCopyWithImpl<T,$Res>
-    implements $SuccessCopyWith<T, $Res> {
-  _$SuccessCopyWithImpl(this._self, this._then);
+class _$VerifyOtpSuccessCopyWithImpl<$Res>
+    implements $VerifyOtpSuccessCopyWith<$Res> {
+  _$VerifyOtpSuccessCopyWithImpl(this._self, this._then);
 
-  final Success<T> _self;
-  final $Res Function(Success<T>) _then;
+  final VerifyOtpSuccess _self;
+  final $Res Function(VerifyOtpSuccess) _then;
 
 /// Create a copy of RegisterState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? auth = freezed,}) {
-  return _then(Success<T>(
-freezed == auth ? _self.auth : auth // ignore: cast_nullable_to_non_nullable
-as T,
+@pragma('vm:prefer-inline') $Res call({Object? registerToken = null,}) {
+  return _then(VerifyOtpSuccess(
+null == registerToken ? _self.registerToken : registerToken // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -322,7 +366,73 @@ as T,
 /// @nodoc
 
 
-class Error<T> implements RegisterState<T> {
+class RegisterSuccess implements RegisterState {
+  const RegisterSuccess(this.auth);
+  
+
+ final  Auth auth;
+
+/// Create a copy of RegisterState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RegisterSuccessCopyWith<RegisterSuccess> get copyWith => _$RegisterSuccessCopyWithImpl<RegisterSuccess>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegisterSuccess&&(identical(other.auth, auth) || other.auth == auth));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,auth);
+
+@override
+String toString() {
+  return 'RegisterState.registerSuccess(auth: $auth)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RegisterSuccessCopyWith<$Res> implements $RegisterStateCopyWith<$Res> {
+  factory $RegisterSuccessCopyWith(RegisterSuccess value, $Res Function(RegisterSuccess) _then) = _$RegisterSuccessCopyWithImpl;
+@useResult
+$Res call({
+ Auth auth
+});
+
+
+
+
+}
+/// @nodoc
+class _$RegisterSuccessCopyWithImpl<$Res>
+    implements $RegisterSuccessCopyWith<$Res> {
+  _$RegisterSuccessCopyWithImpl(this._self, this._then);
+
+  final RegisterSuccess _self;
+  final $Res Function(RegisterSuccess) _then;
+
+/// Create a copy of RegisterState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? auth = null,}) {
+  return _then(RegisterSuccess(
+null == auth ? _self.auth : auth // ignore: cast_nullable_to_non_nullable
+as Auth,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Error implements RegisterState {
   const Error(this.error);
   
 
@@ -332,13 +442,13 @@ class Error<T> implements RegisterState<T> {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ErrorCopyWith<T, Error<T>> get copyWith => _$ErrorCopyWithImpl<T, Error<T>>(this, _$identity);
+$ErrorCopyWith<Error> get copyWith => _$ErrorCopyWithImpl<Error>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Error<T>&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Error&&(identical(other.error, error) || other.error == error));
 }
 
 
@@ -347,15 +457,15 @@ int get hashCode => Object.hash(runtimeType,error);
 
 @override
 String toString() {
-  return 'RegisterState<$T>.error(error: $error)';
+  return 'RegisterState.error(error: $error)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ErrorCopyWith<T,$Res> implements $RegisterStateCopyWith<T, $Res> {
-  factory $ErrorCopyWith(Error<T> value, $Res Function(Error<T>) _then) = _$ErrorCopyWithImpl;
+abstract mixin class $ErrorCopyWith<$Res> implements $RegisterStateCopyWith<$Res> {
+  factory $ErrorCopyWith(Error value, $Res Function(Error) _then) = _$ErrorCopyWithImpl;
 @useResult
 $Res call({
  String error
@@ -366,17 +476,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$ErrorCopyWithImpl<T,$Res>
-    implements $ErrorCopyWith<T, $Res> {
+class _$ErrorCopyWithImpl<$Res>
+    implements $ErrorCopyWith<$Res> {
   _$ErrorCopyWithImpl(this._self, this._then);
 
-  final Error<T> _self;
-  final $Res Function(Error<T>) _then;
+  final Error _self;
+  final $Res Function(Error) _then;
 
 /// Create a copy of RegisterState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? error = null,}) {
-  return _then(Error<T>(
+  return _then(Error(
 null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String,
   ));

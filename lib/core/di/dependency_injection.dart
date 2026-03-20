@@ -5,6 +5,9 @@ import 'package:street_auction/features/auth/data/repo/auth_repo.dart';
 import 'package:street_auction/features/auth/data/services/auth_api_service.dart';
 import 'package:street_auction/features/auth/domain/repo/base_auth_repo.dart';
 import 'package:street_auction/features/auth/domain/usecases/login_usecase.dart';
+import 'package:street_auction/features/auth/domain/usecases/register_use_case.dart';
+import 'package:street_auction/features/auth/domain/usecases/request_email_otp_use_case.dart';
+import 'package:street_auction/features/auth/domain/usecases/verfiy_email_otp_use_case.dart';
 import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
 import 'package:street_auction/features/auth/ui/cubit/register/register_cubit.dart';
 
@@ -28,7 +31,22 @@ class AppDependencyInjection {
       () => LoginCubit(GetIt.instance<LoginUseCase>()),
     );
     // Register
-    GetIt.instance.registerFactory<RegisterCubit>(() => RegisterCubit());
+    GetIt.instance.registerLazySingleton<RequestEmailOtpUseCase>(
+      () => RequestEmailOtpUseCase(GetIt.instance<BaseAuthRepo>()),
+    );
+    GetIt.instance.registerLazySingleton<VerifyEmailOtpUseCase>(
+      () => VerifyEmailOtpUseCase(GetIt.instance<BaseAuthRepo>()),
+    );
+    GetIt.instance.registerLazySingleton<RegisterUseCase>(
+      () => RegisterUseCase(GetIt.instance<BaseAuthRepo>()),
+    );
+    GetIt.instance.registerFactory<RegisterCubit>(
+      () => RegisterCubit(
+        GetIt.instance<RequestEmailOtpUseCase>(),
+        GetIt.instance<VerifyEmailOtpUseCase>(),
+        GetIt.instance<RegisterUseCase>(),
+      ),
+    );
 
     // Home
   }
