@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
-import 'package:street_auction/features/auth/screens/auth_main_screen.dart';
-import 'package:street_auction/features/auth/screens/login_screen.dart';
+import 'package:street_auction/features/auth/ui/screens/auth_main_screen.dart';
+import 'package:street_auction/features/auth/ui/screens/login_screen.dart';
 import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
 
 class AppRouter {
