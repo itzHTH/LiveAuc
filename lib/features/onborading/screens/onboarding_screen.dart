@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:street_auction/core/const/app_constants.dart';
+import 'package:street_auction/core/helpers/app_local_cache.dart';
+import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/widgets/animated_slider.dart';
 import 'package:street_auction/features/onborading/models/page_model.dart';
@@ -46,8 +49,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
   }
 
-  void _handleFinish() {
-    Navigator.pushNamed(context, AppRoutes.auth);
+  void _handleFinish() async {
+    await AppLocalCache.setData(AppConstants.isFirstTimeKey, false);
+    if (mounted) {
+      context.pushNamedAndRemoveUntil(AppRoutes.auth);
+    }
   }
 
   @override

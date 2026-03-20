@@ -41,10 +41,10 @@ class AppLocalCache {
   }
 
   /// Gets a bool value from SharedPreferences with given [key].
-  static Future<bool> getBool(String key) async {
+  static Future<bool?> getBool(String key) async {
     debugPrint('SharedPrefHelper : getBool with key : $key');
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getBool(key) ?? false;
+    return sharedPreferences.getBool(key);
   }
 
   /// Gets a double value from SharedPreferences with given [key].
@@ -78,10 +78,10 @@ class AppLocalCache {
   }
 
   /// Gets an String value from FlutterSecureStorage with given [key].
-  static Future<String> getSecuredString(String key) async {
+  static Future<String?> getSecuredString(String key) async {
     const flutterSecureStorage = FlutterSecureStorage();
     debugPrint('FlutterSecureStorage : getSecuredString with key : $key');
-    return await flutterSecureStorage.read(key: key) ?? '';
+    return await flutterSecureStorage.read(key: key);
   }
 
   /// Removes all keys and values in the FlutterSecureStorage

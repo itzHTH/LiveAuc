@@ -16,7 +16,7 @@ class LiveAuctionApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         title: 'Live Auction',
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.onboarding,
+        initialRoute: AppRoutes.splash,
         theme: AppTheme.lightTheme,
         onGenerateRoute: appRouter.onGenerateRoute,
       ),

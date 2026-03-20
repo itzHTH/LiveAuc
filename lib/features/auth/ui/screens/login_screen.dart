@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
-import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
 import 'package:street_auction/features/auth/ui/widgets/auth_bloc_listener.dart';
 import 'package:street_auction/features/auth/ui/widgets/login_form.dart';
 
@@ -35,78 +32,75 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetIt.instance<LoginCubit>(),
-      child: Scaffold(
-        /// AppBar
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
-            onPressed: () {
-              context.pop();
-            },
-          ),
+    return Scaffold(
+      /// AppBar
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () {
+            context.pop();
+          },
         ),
+      ),
 
-        /// Body
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                /// Title & Subtitle
-                Text(
-                  'It\'s great to have you back!',
-                  style: AppTextStyles.font24BlackMedium,
-                ),
-                Text(
-                  'Sign in and continue your journey',
-                  style: AppTextStyles.font16GrayRegular,
-                ),
+      /// Body
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              /// Title & Subtitle
+              Text(
+                'It\'s great to have you back!',
+                style: AppTextStyles.font24BlackMedium,
+              ),
+              Text(
+                'Sign in and continue your journey',
+                style: AppTextStyles.font16GrayRegular,
+              ),
 
-                const SizedBox(height: 48),
+              const SizedBox(height: 48),
 
-                /// Login Form
-                LoginForm(
-                  formKey: _formKey,
-                  emailController: _emailController,
-                  passwordController: _passwordController,
-                ),
+              /// Login Form
+              LoginForm(
+                formKey: _formKey,
+                emailController: _emailController,
+                passwordController: _passwordController,
+              ),
 
-                const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-                /// Sign Up & Forgot Password Row
-                Row(
-                  children: [
-                    Text('New user?', style: AppTextStyles.font14BlackMedium),
-                    const SizedBox(width: 4),
-                    GestureDetector(
-                      onTap: () {
-                        // TODO: Navigate to Register Screen
-                      },
-                      child: Text(
-                        'Register',
-                        style: AppTextStyles.font14Primary500Medium,
-                      ),
+              /// Sign Up & Forgot Password Row
+              Row(
+                children: [
+                  Text('New user?', style: AppTextStyles.font14BlackMedium),
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: () {
+                      // TODO: Navigate to Register Screen
+                    },
+                    child: Text(
+                      'Register',
+                      style: AppTextStyles.font14Primary500Medium,
                     ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        // TODO: Navigate to Forgot Password Screen
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: AppTextStyles.font14Primary500Medium,
-                      ),
+                  ),
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      // TODO: Navigate to Forgot Password Screen
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: AppTextStyles.font14Primary500Medium,
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
-                /// Auth Bloc Listener
-                const AuthBlocListener(child: SizedBox.shrink()),
-              ],
-            ),
+              /// Auth Bloc Listener
+              const AuthBlocListener(child: SizedBox.shrink()),
+            ],
           ),
         ),
       ),

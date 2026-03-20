@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
+import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
 import 'package:street_auction/features/auth/ui/screens/auth_main_screen.dart';
 import 'package:street_auction/features/auth/ui/screens/login_screen.dart';
 import 'package:street_auction/features/home/ui/screens/home_screen.dart';
 import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
+import 'package:street_auction/features/splash/screens/splash_screen.dart';
 
 class AppRouter {
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case AppRoutes.splash:
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
       case AppRoutes.onboarding:
         return MaterialPageRoute(
           builder: (context) => const OnboardingScreen(),
@@ -15,13 +21,16 @@ class AppRouter {
       case AppRoutes.auth:
         return MaterialPageRoute(builder: (context) => const AuthMainScreen());
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (context) => const LoginScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => GetIt.instance<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
       case AppRoutes.home:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
       default:
-        return MaterialPageRoute(
-          builder: (context) => const OnboardingScreen(),
-        );
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
     }
   }
 }
