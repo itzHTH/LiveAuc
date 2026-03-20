@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:street_auction/core/helpers/navigation_extension.dart';
-import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
 import 'package:street_auction/core/widgets/app_snack_bar.dart';
 import 'package:street_auction/features/auth/domain/entities/register_request.dart';
@@ -80,12 +78,6 @@ class _ThirdRegisterPageState extends State<ThirdRegisterPage> {
                       (cubit.state as VerifyOtpSuccess).registerToken,
                 ),
               );
-
-              if (cubit.state is RegisterSuccess) {
-                if (context.mounted) {
-                  context.pushReplacementNamed(AppRoutes.home);
-                }
-              }
             }
           },
           child: const Text("Submit"),

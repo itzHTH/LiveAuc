@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/widgets/app_loading_dialog.dart';
 import 'package:street_auction/core/widgets/app_snack_bar.dart';
 import 'package:street_auction/features/auth/ui/cubit/register/register_cubit.dart';
@@ -36,6 +38,12 @@ class RegisterBlocListener extends StatelessWidget {
               context: context,
               message: "Register Successfully",
             );
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              if (context.mounted) {
+                Navigator.of(context, rootNavigator: true)
+                    .pushReplacementNamed(AppRoutes.home);
+              }
+            });
           },
           verifyOtpSuccess: (_) {
             AppLoadingDialog.hide(context);
