@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
-import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/register/register_cubit.dart';
 import 'package:street_auction/features/auth/ui/screens/auth_main_screen.dart';
 import 'package:street_auction/features/auth/ui/screens/login_screen.dart';
+import 'package:street_auction/features/auth/ui/screens/register_screen.dart';
 import 'package:street_auction/features/home/ui/screens/home_screen.dart';
 import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
 import 'package:street_auction/features/splash/screens/splash_screen.dart';
@@ -25,6 +27,13 @@ class AppRouter {
           builder: (context) => BlocProvider(
             create: (context) => GetIt.instance<LoginCubit>(),
             child: const LoginScreen(),
+          ),
+        );
+      case AppRoutes.register:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => GetIt.instance<RegisterCubit>(),
+            child: const RegisterScreen(),
           ),
         );
       case AppRoutes.home:

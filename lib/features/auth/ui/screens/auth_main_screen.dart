@@ -22,7 +22,12 @@ class AuthMainScreen extends StatelessWidget {
                 SizedBox(height: 32.h),
                 SvgPicture.asset('assets/images/Logo.svg'),
                 SizedBox(height: 60.h),
-                ElevatedButton(onPressed: () {}, child: const Text('Register')),
+                ElevatedButton(
+                  onPressed: () {
+                    context.pushNamed(AppRoutes.register);
+                  },
+                  child: const Text('Register'),
+                ),
                 SizedBox(height: 16.h),
                 OutlinedButton(
                   onPressed: () {

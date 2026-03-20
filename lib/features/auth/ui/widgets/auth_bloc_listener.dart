@@ -4,7 +4,9 @@ import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/widgets/app_loading_dialog.dart';
 import 'package:street_auction/features/auth/domain/entities/auth.dart';
-import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
+
+import 'package:street_auction/core/widgets/app_snack_bar.dart';
 
 class AuthBlocListener extends StatelessWidget {
   const AuthBlocListener({super.key, required this.child});
@@ -24,19 +26,14 @@ class AuthBlocListener extends StatelessWidget {
           success: (auth) {
             AppLoadingDialog.hide(context);
             context.pushReplacementNamed(AppRoutes.home);
+            AppSnackBar.showSuccess(
+              context: context,
+              message: "Login Successfully",
+            );
           },
           error: (error) {
             AppLoadingDialog.hide(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(error),
-                backgroundColor: const Color(0xFFFF5959),
-                behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            );
+            AppSnackBar.showError(context: context, message: error);
           },
         );
       },

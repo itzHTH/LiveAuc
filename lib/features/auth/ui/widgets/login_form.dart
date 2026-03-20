@@ -5,7 +5,7 @@ import 'package:street_auction/core/helpers/app_validators.dart';
 import 'package:street_auction/core/theme/app_color.dart';
 import 'package:street_auction/core/widgets/app_text_form_field.dart';
 import 'package:street_auction/features/auth/domain/entities/login_request.dart';
-import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({

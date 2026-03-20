@@ -115,6 +115,19 @@ class AppValidators {
     return null;
   }
 
+  /// Validates name
+  static String? name(String? value, {String? fieldName}) {
+    if (value == null || value.isEmpty) {
+      return '${fieldName ?? 'Name'} is required';
+    }
+
+    if (value.length < 2) {
+      return '${fieldName ?? 'Name'} must be at least 2 characters';
+    }
+
+    return null;
+  }
+
   /// Validates username
   static String? username(String? value) {
     if (value == null || value.isEmpty) {

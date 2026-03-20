@@ -65,6 +65,19 @@ class AppTheme {
 
         labelStyle: AppTextStyles.font16BlackRegular,
       ),
+
+      checkboxTheme: CheckboxThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+        checkColor: WidgetStateProperty.all(AppColor.uiWhite),
+        fillColor: WidgetStateProperty.resolveWith<Color>((
+          Set<WidgetState> states,
+        ) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColor.primary500;
+          }
+          return AppColor.uiWhite;
+        }),
+      ),
     );
   }
 }

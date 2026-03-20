@@ -5,7 +5,8 @@ import 'package:street_auction/features/auth/data/repo/auth_repo.dart';
 import 'package:street_auction/features/auth/data/services/auth_api_service.dart';
 import 'package:street_auction/features/auth/domain/repo/base_auth_repo.dart';
 import 'package:street_auction/features/auth/domain/usecases/login_usecase.dart';
-import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/register/register_cubit.dart';
 
 class AppDependencyInjection {
   static void setupGetIt() {
@@ -26,6 +27,8 @@ class AppDependencyInjection {
     GetIt.instance.registerFactory<LoginCubit>(
       () => LoginCubit(GetIt.instance<LoginUseCase>()),
     );
+    // Register
+    GetIt.instance.registerFactory<RegisterCubit>(() => RegisterCubit());
 
     // Home
   }
