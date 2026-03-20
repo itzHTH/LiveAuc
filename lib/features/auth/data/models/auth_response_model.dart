@@ -26,7 +26,7 @@ class AuthResponseModel {
   });
 
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$AuthResponseModelFromJson(json);
+      _$AuthResponseModelFromJson(json['data']);
 
   Map<String, dynamic> toJson() => _$AuthResponseModelToJson(this);
 
