@@ -1,115 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:pinput/pinput.dart';
-import 'package:street_auction/core/helpers/app_validators.dart';
-import 'package:street_auction/core/theme/app_color.dart';
+import 'package:street_auction/core/helpers/navigation_extension.dart';
+import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
 import 'package:street_auction/core/widgets/app_snack_bar.dart';
-import 'package:street_auction/core/widgets/app_text_form_field.dart';
+import 'package:street_auction/features/auth/domain/entities/register_request.dart';
+import 'package:street_auction/features/auth/ui/cubit/register/register_cubit.dart';
 import 'package:street_auction/features/auth/ui/widgets/register_form.dart';
 
-class FirstRegisterPage extends StatelessWidget {
-  const FirstRegisterPage({super.key, required this.onNext});
-
-  final VoidCallback onNext;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "Please provide your email address",
-          style: AppTextStyles.font20BlackMedium,
-          textAlign: TextAlign.center,
-        ),
-        Gap(16.h),
-        Text(
-          "We need this information to verify your identity",
-          style: AppTextStyles.font16GrayRegular,
-          textAlign: TextAlign.center,
-        ),
-
-        // email field
-        Gap(44.h),
-        const AppTextFormField(
-          hintText: "Email Address",
-          validator: AppValidators.email,
-        ),
-
-        // continue button
-        Gap(32.h),
-        ElevatedButton(
-          onPressed: () {
-            onNext.call();
-          },
-          child: const Text("Submit"),
-        ),
-      ],
-    );
-  }
-}
-
-class SecondRegisterPage extends StatelessWidget {
-  const SecondRegisterPage({super.key, required this.onNext});
-
-  final VoidCallback onNext;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "PPlease check your email for the account configuration link",
-          style: AppTextStyles.font20BlackMedium,
-          textAlign: TextAlign.center,
-        ),
-        Gap(16.h),
-        Text(
-          "An account activation link has been sent to your email address",
-          style: AppTextStyles.font16GrayRegular,
-          textAlign: TextAlign.center,
-        ),
-
-        // email field
-        Gap(44.h),
-        Pinput(
-          length: 6,
-          onCompleted: (value) => onNext.call(),
-          onClipboardFound: (value) => onNext.call(),
-          defaultPinTheme: PinTheme(
-            width: 64.w,
-            height: 64.h,
-            textStyle: AppTextStyles.font20BlackMedium,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: AppColor.uiGray),
-            ),
-          ),
-        ),
-
-        // continue button
-        Gap(32.h),
-        Text(
-          "Haven't received the configuration link? ",
-          style: AppTextStyles.font14GrayRegular,
-        ),
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            "Resend Email",
-            style: AppTextStyles.font14Primary500Medium,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class ThirdRegisterPage extends StatefulWidget {
-  const ThirdRegisterPage({super.key, required this.onNext});
-
-  final VoidCallback onNext;
+  const ThirdRegisterPage({super.key});
 
   @override
   State<ThirdRegisterPage> createState() => _ThirdRegisterPageState();
@@ -159,7 +61,7 @@ class _ThirdRegisterPageState extends State<ThirdRegisterPage> {
         // continue button
         Gap(32.h),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             if (!_isAgreed) {
               AppSnackBar.showWarning(
                 context: context,
@@ -168,7 +70,22 @@ class _ThirdRegisterPageState extends State<ThirdRegisterPage> {
               return;
             }
             if (_formKey.currentState!.validate()) {
-              widget.onNext.call();
+              final cubit = context.read<RegisterCubit>();
+              await cubit.register(
+                RegisterRequest(
+                  firstName: _firstNameController.text,
+                  lastName: _lastNameController.text,
+                  password: _passwordController.text,
+                  registerToken:
+                      (cubit.state as VerifyOtpSuccess).registerToken,
+                ),
+              );
+
+              if (cubit.state is RegisterSuccess) {
+                if (context.mounted) {
+                  context.pushReplacementNamed(AppRoutes.home);
+                }
+              }
             }
           },
           child: const Text("Submit"),

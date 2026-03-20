@@ -3,7 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:street_auction/core/widgets/app_back_button.dart';
 import 'package:street_auction/core/widgets/app_step_progress_indicator.dart';
-import 'package:street_auction/features/auth/ui/widgets/register_pages.dart';
+import 'package:street_auction/features/auth/ui/widgets/first_register_page.dart';
+import 'package:street_auction/features/auth/ui/widgets/register_bloc_listener.dart';
+import 'package:street_auction/features/auth/ui/widgets/third_register_page.dart';
+import 'package:street_auction/features/auth/ui/widgets/second_register_page.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -17,10 +20,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   int _currentPage = 0;
 
+  final _emailController = TextEditingController();
+
   List<Widget> get _pages => [
-    FirstRegisterPage(onNext: _nextPage),
-    SecondRegisterPage(onNext: _nextPage),
-    ThirdRegisterPage(onNext: _nextPage),
+    FirstRegisterPage(onNext: _nextPage, emailController: _emailController),
+    SecondRegisterPage(onNext: _nextPage, email: _emailController.text),
+    const ThirdRegisterPage(),
   ];
 
   void _nextPage() {
@@ -47,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void dispose() {
     _pageController.dispose();
-    _pages.clear();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -91,6 +96,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                 ),
+
+                const RegisterBlocListener(child: SizedBox.shrink()),
               ],
             ),
           ),

@@ -8,8 +8,8 @@ import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
 
 import 'package:street_auction/core/widgets/app_snack_bar.dart';
 
-class AuthBlocListener extends StatelessWidget {
-  const AuthBlocListener({super.key, required this.child});
+class LoginBlocListener extends StatelessWidget {
+  const LoginBlocListener({super.key, required this.child});
 
   final Widget child;
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
-import 'package:street_auction/features/auth/ui/widgets/auth_bloc_listener.dart';
+import 'package:street_auction/features/auth/ui/widgets/login_bloc_listener.dart';
 import 'package:street_auction/features/auth/ui/widgets/login_form.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               /// Auth Bloc Listener
-              const AuthBlocListener(child: SizedBox.shrink()),
+              const LoginBlocListener(child: SizedBox.shrink()),
             ],
           ),
         ),
