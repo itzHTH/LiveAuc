@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:street_auction/core/helpers/app_regex.dart';
+import 'package:street_auction/core/helpers/app_validators.dart';
 import 'package:street_auction/features/auth/domain/entities/login_request.dart';
 import 'package:street_auction/features/auth/ui/cubit/auth_cubit.dart';
 
@@ -27,29 +27,13 @@ class LoginForm extends StatelessWidget {
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(hintText: 'Email'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your email';
-              }
-              if (!AppRegex.isEmailValid(value)) {
-                return 'Please enter a valid email';
-              }
-              return null;
-            },
+            validator: AppValidators.email,
           ),
           const SizedBox(height: 16),
           TextFormField(
             controller: _passwordController,
             decoration: const InputDecoration(hintText: 'Password'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your password';
-              }
-              if (!AppRegex.isPasswordValid(value)) {
-                return 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character';
-              }
-              return null;
-            },
+            validator: AppValidators.password,
           ),
           const SizedBox(height: 32),
 

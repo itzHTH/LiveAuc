@@ -33,8 +33,8 @@ class AppTextStyles {
     color: AppColor.uiBlack,
   );
 
-  static TextStyle? font16RedRegular = TextStyle(
-    fontSize: 16.sp,
+  static TextStyle? font12RedRegular = TextStyle(
+    fontSize: 12.sp,
     fontWeight: FontWeight.w400,
     color: AppColor.alertError,
   );

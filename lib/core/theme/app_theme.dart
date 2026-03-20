@@ -51,10 +51,15 @@ class AppTheme {
 
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: const BorderSide(color: AppColor.alertError, width: 1.6),
+          borderSide: const BorderSide(color: AppColor.alertError, width: 1),
         ),
 
-        errorStyle: AppTextStyles.font16RedRegular,
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: const BorderSide(color: AppColor.alertError, width: 2),
+        ),
+
+        errorStyle: AppTextStyles.font12RedRegular,
 
         hintStyle: AppTextStyles.font16GrayRegular,
 
