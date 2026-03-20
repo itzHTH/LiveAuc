@@ -1,3 +1,5 @@
+import 'package:street_auction/core/const/app_constants.dart';
+import 'package:street_auction/core/helpers/app_local_cache.dart';
 import 'package:street_auction/core/networking/api_results.dart';
 import 'package:street_auction/core/networking/errors/error_handler.dart';
 import 'package:street_auction/features/auth/data/models/auth_requset_body.dart';
@@ -19,6 +21,17 @@ class AuthRepo implements BaseAuthRepo {
         password: loginRequest.password,
       );
       final response = await _authApiService.login(body);
+
+      // Save token and refresh token in local cache
+      await AppLocalCache.setSecuredString(
+        AppConstants.tokenKey,
+        response.token ?? "",
+      );
+      await AppLocalCache.setSecuredString(
+        AppConstants.refreshTokenKey,
+        response.refreshToken ?? "",
+      );
+
       return ApiResults<Auth>.success(response.toEntity());
     } catch (e) {
       return ApiResults<Auth>.failure(ErrorHandler.handle(e));
