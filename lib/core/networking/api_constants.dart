@@ -3,5 +3,11 @@ class ApiConstants {
   static const String apiVersion = '1.0';
   static const String acceptEncoding = 'br';
 
+  // Auth
   static const String login = '/liveauction/Auth/login';
+  static const String requestRegisterOtp =
+      '/liveauction/Auth/request-register-otp';
+  static const String verifyRegisterOtp =
+      '/liveauction/Auth/verify-register-otp';
+  static const String register = '/liveauction/Auth/register';
 }

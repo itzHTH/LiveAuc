@@ -2,7 +2,7 @@ import 'package:street_auction/core/const/app_constants.dart';
 import 'package:street_auction/core/helpers/app_local_cache.dart';
 import 'package:street_auction/core/networking/api_results.dart';
 import 'package:street_auction/core/networking/errors/error_handler.dart';
-import 'package:street_auction/features/auth/data/models/auth_requset_body.dart';
+import 'package:street_auction/features/auth/data/models/login_models/login_requset_body.dart';
 import 'package:street_auction/features/auth/data/services/auth_api_service.dart';
 import 'package:street_auction/features/auth/domain/entities/auth.dart';
 import 'package:street_auction/features/auth/domain/entities/login_request.dart';
