@@ -50,13 +50,13 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<bool> requestRegisterOtp(RequestEmailOtpBody body) async {
+  Future<EmailOtpResponse> requestRegisterOtp(RequestEmailOtpBody body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
-    final _options = _setStreamType<bool>(
+    final _options = _setStreamType<EmailOtpResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -66,10 +66,10 @@ class _AuthApiService implements AuthApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<bool>(_options);
-    late bool _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late EmailOtpResponse _value;
     try {
-      _value = _result.data!;
+      _value = EmailOtpResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -78,13 +78,13 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<AuthResponseModel> verifyRegisterOtp(VerifyEmailOtpBody body) async {
+  Future<EmailOtpResponse> verifyRegisterOtp(VerifyEmailOtpBody body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
-    final _options = _setStreamType<AuthResponseModel>(
+    final _options = _setStreamType<EmailOtpResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -95,9 +95,9 @@ class _AuthApiService implements AuthApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AuthResponseModel _value;
+    late EmailOtpResponse _value;
     try {
-      _value = AuthResponseModel.fromJson(_result.data!);
+      _value = EmailOtpResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:street_auction/features/auth/domain/entities/otp.dart';
 
 part "email_otp_response.g.dart";
 
@@ -19,4 +20,12 @@ class EmailOtpResponse {
       _$EmailOtpResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$EmailOtpResponseToJson(this);
+
+  Otp toEntity() {
+    return Otp(
+      registerToken: registerToken,
+      succeeded: succeeded,
+      message: message,
+    );
+  }
 }
