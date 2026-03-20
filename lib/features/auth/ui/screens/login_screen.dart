@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
-import 'package:street_auction/features/auth/domain/entities/login_request.dart';
 import 'package:street_auction/features/auth/ui/cubit/auth_cubit.dart';
+import 'package:street_auction/features/auth/ui/widgets/auth_bloc_listener.dart';
+import 'package:street_auction/features/auth/ui/widgets/login_form.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -67,52 +68,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 48),
 
                 /// Login Form
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: const InputDecoration(hintText: 'Email'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _passwordController,
-                        decoration: const InputDecoration(hintText: 'Password'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 32),
-
-                      Builder(
-                        builder: (context) {
-                          return ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                context.read<AuthCubit>().login(
-                                  LoginRequest(
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                  ),
-                                );
-                              }
-                            },
-                            child: const Text('Sign In'),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                LoginForm(
+                  formKey: _formKey,
+                  emailController: _emailController,
+                  passwordController: _passwordController,
                 ),
 
                 const SizedBox(height: 16),
@@ -143,6 +102,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
+
+                /// Auth Bloc Listener
+                const AuthBlocListener(child: SizedBox.shrink()),
               ],
             ),
           ),
