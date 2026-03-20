@@ -4,7 +4,7 @@ import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/widgets/app_loading_dialog.dart';
 import 'package:street_auction/features/auth/domain/entities/auth.dart';
-import 'package:street_auction/features/auth/ui/cubit/auth_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
 
 class AuthBlocListener extends StatelessWidget {
   const AuthBlocListener({super.key, required this.child});
@@ -13,7 +13,7 @@ class AuthBlocListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState<Auth>>(
+    return BlocListener<LoginCubit, LoginState<Auth>>(
       listenWhen: (previous, current) =>
           current is Loading || current is Success || current is Error,
       listener: (context, state) {

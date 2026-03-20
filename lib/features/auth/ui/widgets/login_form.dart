@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:street_auction/core/helpers/app_validators.dart';
 import 'package:street_auction/features/auth/domain/entities/login_request.dart';
-import 'package:street_auction/features/auth/ui/cubit/auth_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -43,7 +43,7 @@ class LoginForm extends StatelessWidget {
                 onPressed: () {
                   // Trigger Login
                   if (_formKey.currentState!.validate()) {
-                    context.read<AuthCubit>().login(
+                    context.read<LoginCubit>().login(
                       LoginRequest(
                         email: _emailController.text,
                         password: _passwordController.text,

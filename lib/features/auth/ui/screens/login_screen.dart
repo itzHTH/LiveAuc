@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
-import 'package:street_auction/features/auth/ui/cubit/auth_cubit.dart';
+import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
 import 'package:street_auction/features/auth/ui/widgets/auth_bloc_listener.dart';
 import 'package:street_auction/features/auth/ui/widgets/login_form.dart';
 
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GetIt.instance<AuthCubit>(),
+      create: (context) => GetIt.instance<LoginCubit>(),
       child: Scaffold(
         /// AppBar
         appBar: AppBar(

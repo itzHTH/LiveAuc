@@ -5,22 +5,22 @@ import 'package:street_auction/features/auth/domain/entities/auth.dart';
 import 'package:street_auction/features/auth/domain/entities/login_request.dart';
 import 'package:street_auction/features/auth/domain/usecases/login_usecase.dart';
 
-part 'auth_state.dart';
-part 'auth_cubit.freezed.dart';
+part 'login_state.dart';
+part 'login_cubit.freezed.dart';
 
-class AuthCubit extends Cubit<AuthState<Auth>> {
+class LoginCubit extends Cubit<LoginState<Auth>> {
   final LoginUseCase loginUseCase;
-  AuthCubit(this.loginUseCase) : super(const AuthState.initial());
+  LoginCubit(this.loginUseCase) : super(const LoginState.initial());
 
   Future<void> login(LoginRequest request) async {
-    emit(const AuthState.loading());
+    emit(const LoginState.loading());
     final result = await loginUseCase.call(request);
     result.when(
       success: (data) {
-        emit(AuthState.success(data));
+        emit(LoginState.success(data));
       },
       failure: (error) {
-        emit(AuthState.error(error.apiErrorModel.message ?? "Unknown Error"));
+        emit(LoginState.error(error.apiErrorModel.message ?? "Unknown Error"));
       },
     );
   }
