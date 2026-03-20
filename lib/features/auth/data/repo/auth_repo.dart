@@ -15,7 +15,7 @@ class AuthRepo implements BaseAuthRepo {
   Future<ApiResults<Auth>> login(LoginRequest loginRequest) async {
     try {
       final body = LoginRequestBody(
-        username: loginRequest.username,
+        email: loginRequest.email,
         password: loginRequest.password,
       );
       final response = await _authApiService.login(body);
@@ -25,4 +25,3 @@ class AuthRepo implements BaseAuthRepo {
     }
   }
 }
-

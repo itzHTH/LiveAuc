@@ -22,7 +22,9 @@ class AppDependencyInjection {
     GetIt.instance.registerLazySingleton<LoginUseCase>(
       () => LoginUseCase(GetIt.instance<BaseAuthRepo>()),
     );
-    GetIt.instance.registerFactory<AuthCubit>(() => AuthCubit());
+    GetIt.instance.registerFactory<AuthCubit>(
+      () => AuthCubit(GetIt.instance<LoginUseCase>()),
+    );
 
     // Home
   }

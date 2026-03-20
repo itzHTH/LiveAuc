@@ -31,7 +31,6 @@ class DioFactory {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Accept-Encoding': ApiConstants.acceptEncoding,
         },
       ),
     );
