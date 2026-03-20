@@ -10,4 +10,9 @@ class ApiConstants {
   static const String verifyRegisterOtp =
       '/liveauction/Auth/verify-register-otp';
   static const String register = '/liveauction/Auth/register';
+  static const String requestForgetPasswordOtp =
+      '/liveauction/Auth/forgot-password-otp';
+  static const String verifyForgetPasswordOtp =
+      '/liveauction/Auth/verify-password-otp';
+  static const String forgetPassword = '/liveauction/Auth/reset-password';
 }

@@ -5,6 +5,7 @@ import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
 import 'package:street_auction/features/auth/ui/cubit/register/register_cubit.dart';
 import 'package:street_auction/features/auth/ui/screens/auth_main_screen.dart';
+import 'package:street_auction/features/auth/ui/screens/forget_password_screen.dart';
 import 'package:street_auction/features/auth/ui/screens/login_screen.dart';
 import 'package:street_auction/features/auth/ui/screens/register_screen.dart';
 import 'package:street_auction/features/home/ui/screens/home_screen.dart';
@@ -35,6 +36,10 @@ class AppRouter {
             create: (context) => GetIt.instance<RegisterCubit>(),
             child: const RegisterScreen(),
           ),
+        );
+      case AppRoutes.forgetPassword:
+        return MaterialPageRoute(
+          builder: (context) => const ForgetPasswordScreen(),
         );
       case AppRoutes.home:
         return MaterialPageRoute(builder: (context) => const HomeScreen());

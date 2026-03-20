@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
-                      // TODO: Navigate to Forgot Password Screen
+                      context.pushNamed(AppRoutes.forgetPassword);
                     },
                     child: Text(
                       'Forgot Password?',

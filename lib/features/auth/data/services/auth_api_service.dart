@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:street_auction/core/networking/api_constants.dart';
+import 'package:street_auction/features/auth/data/models/forget_passwoed_models/request_models/forget_password_request_body.dart';
+import 'package:street_auction/features/auth/data/models/forget_passwoed_models/response_models/forget_pasword_response.dart';
 import 'package:street_auction/features/auth/data/models/login_models/login_requset_body.dart';
 import 'package:street_auction/features/auth/data/models/auth_response_model.dart';
 import 'package:street_auction/features/auth/data/models/otp_email_models/request_body_models/request_email_otp_body.dart';
@@ -24,4 +26,19 @@ abstract class AuthApiService {
 
   @POST(ApiConstants.register)
   Future<AuthResponseModel> register(@Body() RegisterRequestBody body);
+
+  @POST(ApiConstants.requestForgetPasswordOtp)
+  Future<EmailOtpResponse> requestForgetPasswordOtp(
+    @Body() RequestEmailOtpBody body,
+  );
+
+  @POST(ApiConstants.verifyForgetPasswordOtp)
+  Future<EmailOtpResponse> verifyForgetPasswordOtp(
+    @Body() VerifyEmailOtpBody body,
+  );
+
+  @POST(ApiConstants.forgetPassword)
+  Future<ForgetPasswordResponse> forgetPassword(
+    @Body() ResetPasswordRequestBody body,
+  );
 }

@@ -2,16 +2,19 @@ import 'package:street_auction/core/const/app_constants.dart';
 import 'package:street_auction/core/helpers/app_local_cache.dart';
 import 'package:street_auction/core/networking/api_results.dart';
 import 'package:street_auction/core/networking/errors/error_handler.dart';
+import 'package:street_auction/features/auth/data/models/forget_passwoed_models/request_models/forget_password_request_body.dart';
 import 'package:street_auction/features/auth/data/models/login_models/login_requset_body.dart';
 import 'package:street_auction/features/auth/data/models/otp_email_models/request_body_models/request_email_otp_body.dart';
 import 'package:street_auction/features/auth/data/models/otp_email_models/request_body_models/verify_email_otp_body.dart';
 import 'package:street_auction/features/auth/data/models/register_models/register_requset_body.dart';
 import 'package:street_auction/features/auth/data/services/auth_api_service.dart';
 import 'package:street_auction/features/auth/domain/entities/auth.dart';
+import 'package:street_auction/features/auth/domain/entities/forget_passwrd.dart';
 import 'package:street_auction/features/auth/domain/entities/login_request.dart';
 import 'package:street_auction/features/auth/domain/entities/otp.dart';
 import 'package:street_auction/features/auth/domain/entities/register_request.dart';
 import 'package:street_auction/features/auth/domain/entities/request_email_otp.dart';
+import 'package:street_auction/features/auth/domain/entities/reset_password_request.dart';
 import 'package:street_auction/features/auth/domain/entities/verfiy_email_otp.dart';
 import 'package:street_auction/features/auth/domain/repo/base_auth_repo.dart';
 
@@ -92,6 +95,50 @@ class AuthRepo implements BaseAuthRepo {
       return ApiResults<Otp>.success(response.toEntity());
     } catch (e) {
       return ApiResults<Otp>.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<ApiResults<Otp>> requestForgetPasswordOtp(RequestEmailOtp body) async {
+    try {
+      final requestBody = RequestEmailOtpBody(email: body.email);
+
+      final response = await _authApiService.requestForgetPasswordOtp(
+        requestBody,
+      );
+      return ApiResults<Otp>.success(response.toEntity());
+    } catch (e) {
+      return ApiResults<Otp>.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<ApiResults<Otp>> verifyForgetPasswordOtp(VerifyEmailOtp body) async {
+    try {
+      final requestBody = VerifyEmailOtpBody(email: body.email, otp: body.otp);
+      final response = await _authApiService.verifyForgetPasswordOtp(
+        requestBody,
+      );
+      return ApiResults<Otp>.success(response.toEntity());
+    } catch (e) {
+      return ApiResults<Otp>.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<ApiResults<ForgetPassword>> forgetPassword(
+    ResetPasswordRequest body,
+  ) async {
+    try {
+      final requestBody = ResetPasswordRequestBody(
+        email: body.email,
+        password: body.password,
+        token: body.token,
+      );
+      final response = await _authApiService.forgetPassword(requestBody);
+      return ApiResults<ForgetPassword>.success(response.toEntity());
+    } catch (e) {
+      return ApiResults<ForgetPassword>.failure(ErrorHandler.handle(e));
     }
   }
 }
