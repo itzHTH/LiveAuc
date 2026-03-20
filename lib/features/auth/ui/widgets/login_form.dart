@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:street_auction/core/helpers/app_validators.dart';
+import 'package:street_auction/core/theme/app_color.dart';
+import 'package:street_auction/core/widgets/app_text_form_field.dart';
 import 'package:street_auction/features/auth/domain/entities/login_request.dart';
 import 'package:street_auction/features/auth/ui/cubit/login_cubit.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({
     super.key,
     required GlobalKey<FormState> formKey,
@@ -19,20 +22,43 @@ class LoginForm extends StatelessWidget {
   final TextEditingController _passwordController;
 
   @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  bool isPasswordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: widget._formKey,
       child: Column(
         children: [
-          TextFormField(
-            controller: _emailController,
-            decoration: const InputDecoration(hintText: 'Email'),
+          AppTextFormField(
+            controller: widget._emailController,
+            hintText: 'Email',
             validator: AppValidators.email,
           ),
           const SizedBox(height: 16),
-          TextFormField(
-            controller: _passwordController,
-            decoration: const InputDecoration(hintText: 'Password'),
+          AppTextFormField(
+            isObscureText: isPasswordVisible,
+            suffixIcon: IconButton(
+              padding: EdgeInsets.zero,
+              color: AppColor.uiGray,
+              iconSize: 20.sp,
+              icon: Icon(
+                isPasswordVisible
+                    ? Icons.visibility_rounded
+                    : Icons.visibility_off,
+              ),
+              onPressed: () {
+                setState(() {
+                  isPasswordVisible = !isPasswordVisible;
+                });
+              },
+            ),
+            controller: widget._passwordController,
+            hintText: 'Password',
             validator: AppValidators.password,
           ),
           const SizedBox(height: 32),
@@ -42,11 +68,11 @@ class LoginForm extends StatelessWidget {
               return ElevatedButton(
                 onPressed: () {
                   // Trigger Login
-                  if (_formKey.currentState!.validate()) {
+                  if (widget._formKey.currentState!.validate()) {
                     context.read<LoginCubit>().login(
                       LoginRequest(
-                        email: _emailController.text,
-                        password: _passwordController.text,
+                        email: widget._emailController.text,
+                        password: widget._passwordController.text,
                       ),
                     );
                   }
