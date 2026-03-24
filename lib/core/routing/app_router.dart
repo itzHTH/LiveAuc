@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
+import 'package:street_auction/features/auth/ui/cubit/forget_password/forget_password_cubit.dart';
 import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
 import 'package:street_auction/features/auth/ui/cubit/register/register_cubit.dart';
 import 'package:street_auction/features/auth/ui/screens/auth_main_screen.dart';
@@ -39,7 +40,10 @@ class AppRouter {
         );
       case AppRoutes.forgetPassword:
         return MaterialPageRoute(
-          builder: (context) => const ForgetPasswordScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => GetIt.instance<ForgetPasswordCubit>(),
+            child: const ForgetPasswordScreen(),
+          ),
         );
       case AppRoutes.home:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
