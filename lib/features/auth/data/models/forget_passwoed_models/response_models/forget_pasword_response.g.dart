@@ -8,8 +8,8 @@ part of 'forget_pasword_response.dart';
 
 ForgetPasswordResponse _$ForgetPasswordResponseFromJson(
   Map<String, dynamic> json,
-) => ForgetPasswordResponse(success: json['success'] as bool);
+) => ForgetPasswordResponse(succeeded: json['succeeded'] as bool);
 
 Map<String, dynamic> _$ForgetPasswordResponseToJson(
   ForgetPasswordResponse instance,
-) => <String, dynamic>{'success': instance.success};
+) => <String, dynamic>{'succeeded': instance.succeeded};

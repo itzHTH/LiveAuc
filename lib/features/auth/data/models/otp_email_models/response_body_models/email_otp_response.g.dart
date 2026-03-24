@@ -10,7 +10,7 @@ EmailOtpResponse _$EmailOtpResponseFromJson(Map<String, dynamic> json) =>
     EmailOtpResponse(
       succeeded: json['succeeded'] as bool,
       message: json['message'] as String,
-      registerToken: json['data'] as String?,
+      registerToken: json['data'],
     );
 
 Map<String, dynamic> _$EmailOtpResponseToJson(EmailOtpResponse instance) =>

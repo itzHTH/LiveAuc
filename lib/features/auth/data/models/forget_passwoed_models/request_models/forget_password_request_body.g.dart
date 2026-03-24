@@ -10,7 +10,7 @@ ResetPasswordRequestBody _$ResetPasswordRequestBodyFromJson(
   Map<String, dynamic> json,
 ) => ResetPasswordRequestBody(
   email: json['email'] as String,
-  password: json['password'] as String,
+  newPassword: json['newPassword'] as String,
   token: json['token'] as String,
 );
 
@@ -18,6 +18,6 @@ Map<String, dynamic> _$ResetPasswordRequestBodyToJson(
   ResetPasswordRequestBody instance,
 ) => <String, dynamic>{
   'email': instance.email,
-  'password': instance.password,
+  'newPassword': instance.newPassword,
   'token': instance.token,
 };

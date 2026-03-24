@@ -10,12 +10,9 @@ import 'package:street_auction/features/auth/domain/entities/reset_password_requ
 import 'package:street_auction/features/auth/ui/cubit/forget_password/forget_password_cubit.dart';
 
 class ThirdForgetPasswordPage extends StatefulWidget {
-  const ThirdForgetPasswordPage({
-    super.key,
-    required this.email,
-  });
+  const ThirdForgetPasswordPage({super.key, required this.email});
 
-  final String email;
+  final TextEditingController email;
 
   @override
   State<ThirdForgetPasswordPage> createState() =>
@@ -92,11 +89,10 @@ class _ThirdForgetPasswordPageState extends State<ThirdForgetPasswordPage> {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               final cubit = context.read<ForgetPasswordCubit>();
-              final resetToken =
-                  (cubit.state as FpVerifyOtpSuccess).resetToken;
+              final resetToken = (cubit.state as FpVerifyOtpSuccess).resetToken;
               await cubit.resetPassword(
                 ResetPasswordRequest(
-                  email: widget.email,
+                  email: widget.email.text,
                   password: _passwordController.text,
                   token: resetToken,
                 ),

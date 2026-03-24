@@ -34,9 +34,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         ),
         SecondForgetPasswordPage(
           onNext: _pageController.nextPage,
-          email: _emailController.text,
+          email: _emailController,
         ),
-        ThirdForgetPasswordPage(email: _emailController.text),
+        ThirdForgetPasswordPage(email: _emailController),
       ],
       blocListener: const ForgetPasswordBlocListener(child: SizedBox.shrink()),
     );

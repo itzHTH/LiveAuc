@@ -1,5 +1,5 @@
 class Otp {
-  final String? registerToken;
+  final dynamic registerToken;
   final bool succeeded;
   final String message;
 

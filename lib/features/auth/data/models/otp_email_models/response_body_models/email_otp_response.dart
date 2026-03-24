@@ -8,7 +8,7 @@ class EmailOtpResponse {
   final bool succeeded;
   final String message;
   @JsonKey(name: "data")
-  final String? registerToken;
+  final dynamic registerToken;
 
   EmailOtpResponse({
     required this.succeeded,

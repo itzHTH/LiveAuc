@@ -17,7 +17,7 @@ class SecondForgetPasswordPage extends StatefulWidget {
   });
 
   final VoidCallback onNext;
-  final String email;
+  final TextEditingController email;
 
   @override
   State<SecondForgetPasswordPage> createState() =>
@@ -27,9 +27,7 @@ class SecondForgetPasswordPage extends StatefulWidget {
 class _SecondForgetPasswordPageState extends State<SecondForgetPasswordPage> {
   Future<void> _onOtpCompleted(String value) async {
     final cubit = context.read<ForgetPasswordCubit>();
-    await cubit.verifyOtp(
-      VerifyEmailOtp(email: widget.email, otp: value),
-    );
+    await cubit.verifyOtp(VerifyEmailOtp(email: widget.email.text, otp: value));
 
     if (!context.mounted) return;
     if (cubit.state is FpVerifyOtpSuccess) {
@@ -75,7 +73,7 @@ class _SecondForgetPasswordPageState extends State<SecondForgetPasswordPage> {
         TextButton(
           onPressed: () async {
             final cubit = context.read<ForgetPasswordCubit>();
-            await cubit.requestOtp(RequestEmailOtp(email: widget.email));
+            await cubit.requestOtp(RequestEmailOtp(email: widget.email.text));
           },
           child: Text(
             'Resend OTP',

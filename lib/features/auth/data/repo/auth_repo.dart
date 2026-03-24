@@ -132,7 +132,7 @@ class AuthRepo implements BaseAuthRepo {
     try {
       final requestBody = ResetPasswordRequestBody(
         email: body.email,
-        password: body.password,
+        newPassword: body.password,
         token: body.token,
       );
       final response = await _authApiService.forgetPassword(requestBody);

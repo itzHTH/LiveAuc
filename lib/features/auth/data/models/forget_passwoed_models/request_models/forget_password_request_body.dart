@@ -5,12 +5,12 @@ part 'forget_password_request_body.g.dart';
 @JsonSerializable()
 class ResetPasswordRequestBody {
   final String email;
-  final String password;
+  final String newPassword;
   final String token;
 
   ResetPasswordRequestBody({
     required this.email,
-    required this.password,
+    required this.newPassword,
     required this.token,
   });
 
