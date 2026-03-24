@@ -15,4 +15,7 @@ class ApiConstants {
   static const String verifyForgetPasswordOtp =
       '/liveauction/Auth/verify-password-otp';
   static const String forgetPassword = '/liveauction/Auth/reset-password';
+
+  // Refresh Token
+  static const String refreshToken = '/liveauction/Auth/refresh-token';
 }

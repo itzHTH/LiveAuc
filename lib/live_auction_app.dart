@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:street_auction/core/helpers/app_navigation.dart';
 import 'package:street_auction/core/routing/app_router.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/theme/app_theme.dart';
@@ -19,6 +20,7 @@ class LiveAuctionApp extends StatelessWidget {
         initialRoute: AppRoutes.splash,
         theme: AppTheme.lightTheme,
         onGenerateRoute: appRouter.onGenerateRoute,
+        navigatorKey: AppNavigation.navigatorKey,
       ),
     );
   }
