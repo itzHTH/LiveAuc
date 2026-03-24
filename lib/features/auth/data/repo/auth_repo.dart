@@ -7,6 +7,7 @@ import 'package:street_auction/features/auth/data/models/login_models/login_requ
 import 'package:street_auction/features/auth/data/models/otp_email_models/request_body_models/request_email_otp_body.dart';
 import 'package:street_auction/features/auth/data/models/otp_email_models/request_body_models/verify_email_otp_body.dart';
 import 'package:street_auction/features/auth/data/models/register_models/register_requset_body.dart';
+import 'package:street_auction/features/auth/data/models/logout_models/logout_request_body.dart';
 import 'package:street_auction/features/auth/data/services/auth_api_service.dart';
 import 'package:street_auction/features/auth/domain/entities/auth.dart';
 import 'package:street_auction/features/auth/domain/entities/forget_passwrd.dart';
@@ -139,6 +140,24 @@ class AuthRepo implements BaseAuthRepo {
       return ApiResults<ForgetPassword>.success(response.toEntity());
     } catch (e) {
       return ApiResults<ForgetPassword>.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<ApiResults<void>> logout() async {
+    try {
+      await _authApiService.logout(
+        LogoutRequestBody(
+          token: await AppLocalCache.getSecuredString(
+                AppConstants.refreshTokenKey,
+              ) ??
+              "",
+        ),
+      );
+      await AppLocalCache.clearAllSecuredData();
+      return const ApiResults<void>.success(null);
+    } catch (e) {
+      return ApiResults<void>.failure(ErrorHandler.handle(e));
     }
   }
 }

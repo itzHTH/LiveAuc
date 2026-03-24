@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:street_auction/core/helpers/app_local_cache.dart';
 import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/theme/app_color.dart';
+import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                   foregroundColor: AppColor.uiWhite,
                 ),
                 onPressed: () async {
-                  await AppLocalCache.clearAllSecuredData();
+                  await context.read<LoginCubit>().logout();
 
                   if (!context.mounted) return;
                   context.pushNamedAndRemoveUntil(AppRoutes.auth);

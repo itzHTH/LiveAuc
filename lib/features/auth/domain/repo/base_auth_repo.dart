@@ -16,4 +16,5 @@ abstract class BaseAuthRepo {
   Future<ApiResults<Otp>> requestForgetPasswordOtp(RequestEmailOtp body);
   Future<ApiResults<Otp>> verifyForgetPasswordOtp(VerifyEmailOtp body);
   Future<ApiResults<ForgetPassword>> forgetPassword(ResetPasswordRequest body);
+  Future<ApiResults<void>> logout();
 }

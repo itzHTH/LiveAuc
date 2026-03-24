@@ -46,7 +46,12 @@ class AppRouter {
           ),
         );
       case AppRoutes.home:
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => GetIt.instance<LoginCubit>(),
+            child: const HomeScreen(),
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
     }

@@ -55,13 +55,14 @@ extension LoginStatePatterns<T> on LoginState<T> {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( Loading<T> value)?  loading,TResult Function( Success<T> value)?  success,TResult Function( Error<T> value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( Loading<T> value)?  loading,TResult Function( Success<T> value)?  success,TResult Function( LogoutSuccess<T> value)?  logoutSuccess,TResult Function( Error<T> value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
 return loading(_that);case Success() when success != null:
-return success(_that);case Error() when error != null:
+return success(_that);case LogoutSuccess() when logoutSuccess != null:
+return logoutSuccess(_that);case Error() when error != null:
 return error(_that);case _:
   return orElse();
 
@@ -80,13 +81,14 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( Loading<T> value)  loading,required TResult Function( Success<T> value)  success,required TResult Function( Error<T> value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( Loading<T> value)  loading,required TResult Function( Success<T> value)  success,required TResult Function( LogoutSuccess<T> value)  logoutSuccess,required TResult Function( Error<T> value)  error,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case Loading():
 return loading(_that);case Success():
-return success(_that);case Error():
+return success(_that);case LogoutSuccess():
+return logoutSuccess(_that);case Error():
 return error(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -104,13 +106,14 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( Loading<T> value)?  loading,TResult? Function( Success<T> value)?  success,TResult? Function( Error<T> value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( Loading<T> value)?  loading,TResult? Function( Success<T> value)?  success,TResult? Function( LogoutSuccess<T> value)?  logoutSuccess,TResult? Function( Error<T> value)?  error,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
 return loading(_that);case Success() when success != null:
-return success(_that);case Error() when error != null:
+return success(_that);case LogoutSuccess() when logoutSuccess != null:
+return logoutSuccess(_that);case Error() when error != null:
 return error(_that);case _:
   return null;
 
@@ -128,12 +131,13 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T auth)?  success,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T auth)?  success,TResult Function()?  logoutSuccess,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Success() when success != null:
-return success(_that.auth);case Error() when error != null:
+return success(_that.auth);case LogoutSuccess() when logoutSuccess != null:
+return logoutSuccess();case Error() when error != null:
 return error(_that.error);case _:
   return orElse();
 
@@ -152,12 +156,13 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T auth)  success,required TResult Function( String error)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T auth)  success,required TResult Function()  logoutSuccess,required TResult Function( String error)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case Loading():
 return loading();case Success():
-return success(_that.auth);case Error():
+return success(_that.auth);case LogoutSuccess():
+return logoutSuccess();case Error():
 return error(_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +180,13 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T auth)?  success,TResult? Function( String error)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T auth)?  success,TResult? Function()?  logoutSuccess,TResult? Function( String error)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Success() when success != null:
-return success(_that.auth);case Error() when error != null:
+return success(_that.auth);case LogoutSuccess() when logoutSuccess != null:
+return logoutSuccess();case Error() when error != null:
 return error(_that.error);case _:
   return null;
 
@@ -318,6 +324,38 @@ as T,
 
 
 }
+
+/// @nodoc
+
+
+class LogoutSuccess<T> implements LoginState<T> {
+  const LogoutSuccess();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LogoutSuccess<T>);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'LoginState<$T>.logoutSuccess()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 

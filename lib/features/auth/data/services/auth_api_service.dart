@@ -8,6 +8,7 @@ import 'package:street_auction/features/auth/data/models/auth_response_model.dar
 import 'package:street_auction/features/auth/data/models/otp_email_models/request_body_models/request_email_otp_body.dart';
 import 'package:street_auction/features/auth/data/models/otp_email_models/request_body_models/verify_email_otp_body.dart';
 import 'package:street_auction/features/auth/data/models/otp_email_models/response_body_models/email_otp_response.dart';
+import 'package:street_auction/features/auth/data/models/logout_models/logout_request_body.dart';
 import 'package:street_auction/features/auth/data/models/register_models/register_requset_body.dart';
 part 'auth_api_service.g.dart';
 
@@ -41,4 +42,7 @@ abstract class AuthApiService {
   Future<ForgetPasswordResponse> forgetPassword(
     @Body() ResetPasswordRequestBody body,
   );
+
+  @POST(ApiConstants.logout)
+  Future<void> logout(@Body() LogoutRequestBody body);
 }

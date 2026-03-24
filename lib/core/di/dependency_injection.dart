@@ -6,6 +6,7 @@ import 'package:street_auction/features/auth/data/services/auth_api_service.dart
 import 'package:street_auction/features/auth/domain/repo/base_auth_repo.dart';
 import 'package:street_auction/features/auth/domain/usecases/forget_password_use_case.dart';
 import 'package:street_auction/features/auth/domain/usecases/login_usecase.dart';
+import 'package:street_auction/features/auth/domain/usecases/logout_use_case.dart';
 import 'package:street_auction/features/auth/domain/usecases/register_use_case.dart';
 import 'package:street_auction/features/auth/domain/usecases/request_email_otp_use_case.dart';
 import 'package:street_auction/features/auth/domain/usecases/request_forget_password_otp_use_case.dart';
@@ -31,8 +32,14 @@ class AppDependencyInjection {
     GetIt.instance.registerLazySingleton<LoginUseCase>(
       () => LoginUseCase(GetIt.instance<BaseAuthRepo>()),
     );
+    GetIt.instance.registerLazySingleton<LogoutUseCase>(
+      () => LogoutUseCase(GetIt.instance<BaseAuthRepo>()),
+    );
     GetIt.instance.registerFactory<LoginCubit>(
-      () => LoginCubit(GetIt.instance<LoginUseCase>()),
+      () => LoginCubit(
+        GetIt.instance<LoginUseCase>(),
+        GetIt.instance<LogoutUseCase>(),
+      ),
     );
     // Register
     GetIt.instance.registerLazySingleton<RequestEmailOtpUseCase>(
