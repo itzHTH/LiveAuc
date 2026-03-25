@@ -3,6 +3,9 @@ class ApiConstants {
   static const String apiVersion = '1.0';
   static const String acceptEncoding = 'br';
 
+  // App Status
+  static const String appStatus = '/liveauction/AppStatus/check';
+
   // Auth
   static const String login = '/liveauction/Auth/login';
   static const String requestRegisterOtp =
