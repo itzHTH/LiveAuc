@@ -8,7 +8,7 @@ part 'app_status_api_service.g.dart';
 
 @RestApi()
 abstract class AppStatusService {
-  factory AppStatusService(Dio dio, {required String baseUrl}) =>
+  factory AppStatusService(Dio dio, {String? baseUrl}) =>
       _AppStatusService(dio, baseUrl: baseUrl);
 
   @GET(ApiConstants.appStatus)
