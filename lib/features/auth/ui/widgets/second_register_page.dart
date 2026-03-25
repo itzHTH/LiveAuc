@@ -17,7 +17,7 @@ class SecondRegisterPage extends StatefulWidget {
   });
 
   final VoidCallback onNext;
-  final String email;
+  final TextEditingController email;
 
   @override
   State<SecondRegisterPage> createState() => _SecondRegisterPageState();
@@ -26,7 +26,9 @@ class SecondRegisterPage extends StatefulWidget {
 class _SecondRegisterPageState extends State<SecondRegisterPage> {
   Future<void> _onOtpCompleted(String value) async {
     final cubit = context.read<RegisterCubit>();
-    await cubit.verifyEmailOtp(VerifyEmailOtp(email: widget.email, otp: value));
+    await cubit.verifyEmailOtp(
+      VerifyEmailOtp(email: widget.email.text, otp: value),
+    );
 
     if (!context.mounted) return;
 
@@ -77,7 +79,9 @@ class _SecondRegisterPageState extends State<SecondRegisterPage> {
         TextButton(
           onPressed: () async {
             final cubit = context.read<RegisterCubit>();
-            await cubit.requestEmailOtp(RequestEmailOtp(email: widget.email));
+            await cubit.requestEmailOtp(
+              RequestEmailOtp(email: widget.email.text),
+            );
           },
           child: Text(
             "Resend Email",
