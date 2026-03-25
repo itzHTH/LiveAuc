@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         SecondRegisterPage(
           onNext: _pageController.nextPage,
-          email: _emailController.text,
+          email: _emailController,
         ),
         const ThirdRegisterPage(),
       ],
