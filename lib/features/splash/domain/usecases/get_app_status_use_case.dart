@@ -32,10 +32,7 @@ class GetAppStatusUseCase
             ).compareTo(AppVersion.parse(data.currentVersion)) <
             0) {
           return ApiResults.success(
-            OptionalUpdate(
-              message: data.message,
-              storeUrl: data.storeUrl ?? '',
-            ),
+            OptionalUpdate(storeUrl: data.storeUrl ?? ''),
           );
         }
         // App is up to date

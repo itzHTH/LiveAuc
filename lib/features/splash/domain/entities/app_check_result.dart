@@ -14,9 +14,8 @@ class ForceUpdate extends AppCheckResult {
 }
 
 class OptionalUpdate extends AppCheckResult {
-  final String message;
   final String storeUrl;
-  const OptionalUpdate({required this.message, required this.storeUrl});
+  const OptionalUpdate({required this.storeUrl});
 }
 
 class AppOk extends AppCheckResult {

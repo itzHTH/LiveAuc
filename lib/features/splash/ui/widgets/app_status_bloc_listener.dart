@@ -59,15 +59,13 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
   Future<void> _showOptionalUpdateSheet(
     BuildContext context,
     String storeUrl,
-    String? message,
   ) async {
     await AppBottomSheet.show(
       context: context,
       isDismissible: true,
       title: 'New Update',
       body: Text(
-        message ??
-            'There is a new version of the app. You can update now or later.',
+        'There is a new version of the app. You can update now or later.',
         style: AppTextStyles.font16GrayRegular,
       ),
       primaryLabel: 'Update Now',
@@ -102,7 +100,7 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
                 );
               case OptionalUpdate data:
                 debugPrint("OptionalUpdate: ${data.storeUrl}");
-                _showOptionalUpdateSheet(context, data.storeUrl, data.message);
+                _showOptionalUpdateSheet(context, data.storeUrl);
               case MaintenanceMode data:
                 debugPrint("MaintenanceMode: ${data.message}");
                 context.pushNamedAndRemoveUntil(
