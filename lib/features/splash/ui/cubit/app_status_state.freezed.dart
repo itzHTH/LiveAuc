@@ -55,13 +55,13 @@ extension AppStatusStatePatterns on AppStatusState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Success value)?  success,TResult Function( _Failure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Success value)?  success,TResult Function( Failure value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Success() when success != null:
-return success(_that);case _Failure() when failure != null:
+case Initial() when initial != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Success() when success != null:
+return success(_that);case Failure() when failure != null:
 return failure(_that);case _:
   return orElse();
 
@@ -80,13 +80,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Success value)  success,required TResult Function( _Failure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Success value)  success,required TResult Function( Failure value)  failure,}){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _Loading():
-return loading(_that);case _Success():
-return success(_that);case _Failure():
+case Initial():
+return initial(_that);case Loading():
+return loading(_that);case Success():
+return success(_that);case Failure():
 return failure(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -104,13 +104,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Success value)?  success,TResult? Function( _Failure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Success value)?  success,TResult? Function( Failure value)?  failure,}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Success() when success != null:
-return success(_that);case _Failure() when failure != null:
+case Initial() when initial != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Success() when success != null:
+return success(_that);case Failure() when failure != null:
 return failure(_that);case _:
   return null;
 
@@ -130,10 +130,10 @@ return failure(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( AppCheckResult appCheckResult)?  success,TResult Function( String error)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Success() when success != null:
-return success(_that.appCheckResult);case _Failure() when failure != null:
+case Initial() when initial != null:
+return initial();case Loading() when loading != null:
+return loading();case Success() when success != null:
+return success(_that.appCheckResult);case Failure() when failure != null:
 return failure(_that.error);case _:
   return orElse();
 
@@ -154,10 +154,10 @@ return failure(_that.error);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( AppCheckResult appCheckResult)  success,required TResult Function( String error)  failure,}) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _Loading():
-return loading();case _Success():
-return success(_that.appCheckResult);case _Failure():
+case Initial():
+return initial();case Loading():
+return loading();case Success():
+return success(_that.appCheckResult);case Failure():
 return failure(_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -177,10 +177,10 @@ return failure(_that.error);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( AppCheckResult appCheckResult)?  success,TResult? Function( String error)?  failure,}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Success() when success != null:
-return success(_that.appCheckResult);case _Failure() when failure != null:
+case Initial() when initial != null:
+return initial();case Loading() when loading != null:
+return loading();case Success() when success != null:
+return success(_that.appCheckResult);case Failure() when failure != null:
 return failure(_that.error);case _:
   return null;
 
@@ -192,8 +192,8 @@ return failure(_that.error);case _:
 /// @nodoc
 
 
-class _Initial implements AppStatusState {
-  const _Initial();
+class Initial implements AppStatusState {
+  const Initial();
   
 
 
@@ -203,7 +203,7 @@ class _Initial implements AppStatusState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
 }
 
 
@@ -224,8 +224,8 @@ String toString() {
 /// @nodoc
 
 
-class _Loading implements AppStatusState {
-  const _Loading();
+class Loading implements AppStatusState {
+  const Loading();
   
 
 
@@ -235,7 +235,7 @@ class _Loading implements AppStatusState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading);
 }
 
 
@@ -256,8 +256,8 @@ String toString() {
 /// @nodoc
 
 
-class _Success implements AppStatusState {
-  const _Success(this.appCheckResult);
+class Success implements AppStatusState {
+  const Success(this.appCheckResult);
   
 
  final  AppCheckResult appCheckResult;
@@ -266,13 +266,13 @@ class _Success implements AppStatusState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(this, _$identity);
+$SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.appCheckResult, appCheckResult) || other.appCheckResult == appCheckResult));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&(identical(other.appCheckResult, appCheckResult) || other.appCheckResult == appCheckResult));
 }
 
 
@@ -288,8 +288,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$SuccessCopyWith<$Res> implements $AppStatusStateCopyWith<$Res> {
-  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
+abstract mixin class $SuccessCopyWith<$Res> implements $AppStatusStateCopyWith<$Res> {
+  factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
  AppCheckResult appCheckResult
@@ -300,17 +300,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$SuccessCopyWithImpl<$Res>
-    implements _$SuccessCopyWith<$Res> {
-  __$SuccessCopyWithImpl(this._self, this._then);
+class _$SuccessCopyWithImpl<$Res>
+    implements $SuccessCopyWith<$Res> {
+  _$SuccessCopyWithImpl(this._self, this._then);
 
-  final _Success _self;
-  final $Res Function(_Success) _then;
+  final Success _self;
+  final $Res Function(Success) _then;
 
 /// Create a copy of AppStatusState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? appCheckResult = null,}) {
-  return _then(_Success(
+  return _then(Success(
 null == appCheckResult ? _self.appCheckResult : appCheckResult // ignore: cast_nullable_to_non_nullable
 as AppCheckResult,
   ));
@@ -322,8 +322,8 @@ as AppCheckResult,
 /// @nodoc
 
 
-class _Failure implements AppStatusState {
-  const _Failure(this.error);
+class Failure implements AppStatusState {
+  const Failure(this.error);
   
 
  final  String error;
@@ -332,13 +332,13 @@ class _Failure implements AppStatusState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$FailureCopyWith<_Failure> get copyWith => __$FailureCopyWithImpl<_Failure>(this, _$identity);
+$FailureCopyWith<Failure> get copyWith => _$FailureCopyWithImpl<Failure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Failure&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Failure&&(identical(other.error, error) || other.error == error));
 }
 
 
@@ -354,8 +354,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$FailureCopyWith<$Res> implements $AppStatusStateCopyWith<$Res> {
-  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) = __$FailureCopyWithImpl;
+abstract mixin class $FailureCopyWith<$Res> implements $AppStatusStateCopyWith<$Res> {
+  factory $FailureCopyWith(Failure value, $Res Function(Failure) _then) = _$FailureCopyWithImpl;
 @useResult
 $Res call({
  String error
@@ -366,17 +366,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$FailureCopyWithImpl<$Res>
-    implements _$FailureCopyWith<$Res> {
-  __$FailureCopyWithImpl(this._self, this._then);
+class _$FailureCopyWithImpl<$Res>
+    implements $FailureCopyWith<$Res> {
+  _$FailureCopyWithImpl(this._self, this._then);
 
-  final _Failure _self;
-  final $Res Function(_Failure) _then;
+  final Failure _self;
+  final $Res Function(Failure) _then;
 
 /// Create a copy of AppStatusState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? error = null,}) {
-  return _then(_Failure(
+  return _then(Failure(
 null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String,
   ));

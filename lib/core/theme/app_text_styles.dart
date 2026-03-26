@@ -56,4 +56,10 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: AppColor.uiWhite,
   );
+
+  static TextStyle? font16WhiteMedium = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColor.uiWhite,
+  );
 }

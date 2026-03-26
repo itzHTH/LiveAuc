@@ -4,6 +4,7 @@ import 'package:street_auction/core/theme/app_color.dart';
 import 'package:street_auction/features/splash/ui/cubit/app_status_cubit.dart';
 import 'package:street_auction/features/splash/ui/widgets/animated_logo.dart';
 import 'package:street_auction/features/splash/ui/widgets/animated_status_message.dart';
+import 'package:street_auction/features/splash/ui/widgets/app_status_bloc_listener.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -37,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Spacer(flex: 2),
             AnimatedStatusMessage(),
             Spacer(flex: 1),
+            AppStatusBlocListener(child: SizedBox.shrink()),
           ],
         ),
       ),

@@ -4,9 +4,8 @@ part 'app_status_state.freezed.dart';
 
 @freezed
 class AppStatusState with _$AppStatusState {
-  const factory AppStatusState.initial() = _Initial;
-  const factory AppStatusState.loading() = _Loading;
-  const factory AppStatusState.success(AppCheckResult appCheckResult) =
-      _Success;
-  const factory AppStatusState.failure(String error) = _Failure;
+  const factory AppStatusState.initial() = Initial;
+  const factory AppStatusState.loading() = Loading;
+  const factory AppStatusState.success(AppCheckResult appCheckResult) = Success;
+  const factory AppStatusState.failure(String error) = Failure;
 }
