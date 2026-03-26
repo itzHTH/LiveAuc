@@ -22,12 +22,7 @@ class GetAppStatusUseCase
         }
         // Force update mode
         else if (data.updateRequired || data.isBanned) {
-          return ApiResults.success(
-            ForceUpdate(
-              storeUrl: data.storeUrl ?? '',
-              currentVersion: data.currentVersion,
-            ),
-          );
+          return ApiResults.success(ForceUpdate(storeUrl: data.storeUrl ?? ''));
         }
         // Optional update mode
         else if (AppVersion.parse(

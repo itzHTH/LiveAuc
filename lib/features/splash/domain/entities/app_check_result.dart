@@ -9,8 +9,7 @@ class MaintenanceMode extends AppCheckResult {
 
 class ForceUpdate extends AppCheckResult {
   final String storeUrl;
-  final String currentVersion;
-  const ForceUpdate({required this.storeUrl, required this.currentVersion});
+  const ForceUpdate({required this.storeUrl});
 }
 
 class OptionalUpdate extends AppCheckResult {

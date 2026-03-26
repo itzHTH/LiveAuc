@@ -91,8 +91,10 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
             switch (appCheckResult) {
               case ForceUpdate data:
                 debugPrint("ForceUpdate: ${data.storeUrl}");
-              // TODO: Navigate to force update screen
-              // context.pushNamedAndRemoveUntil(AppRoutes.forceUpdate);
+                context.pushNamedAndRemoveUntil(
+                  AppRoutes.forceUpdate,
+                  arguments: data.storeUrl,
+                );
               case OptionalUpdate data:
                 debugPrint("OptionalUpdate: ${data.storeUrl}");
                 _showOptionalUpdateSheet(context, data.storeUrl);

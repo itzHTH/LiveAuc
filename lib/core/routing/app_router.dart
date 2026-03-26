@@ -12,6 +12,7 @@ import 'package:street_auction/features/auth/ui/screens/register_screen.dart';
 import 'package:street_auction/features/home/ui/screens/home_screen.dart';
 import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
 import 'package:street_auction/features/splash/ui/cubit/app_status_cubit.dart';
+import 'package:street_auction/features/splash/ui/screens/force_update_screen.dart';
 import 'package:street_auction/features/splash/ui/screens/splash_screen.dart';
 
 class AppRouter {
@@ -50,6 +51,11 @@ class AppRouter {
             create: (context) => GetIt.instance<ForgetPasswordCubit>(),
             child: const ForgetPasswordScreen(),
           ),
+        );
+      case AppRoutes.forceUpdate:
+        final args = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => ForceUpdateScreen(storeUrl: args),
         );
       case AppRoutes.home:
         return MaterialPageRoute(
