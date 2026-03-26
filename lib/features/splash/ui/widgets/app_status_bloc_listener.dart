@@ -6,6 +6,7 @@ import 'package:street_auction/core/helpers/app_local_cache.dart';
 import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 
+import 'package:street_auction/core/helpers/app_url_launcher.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
 import 'package:street_auction/core/widgets/app_bottom_sheet.dart';
 import 'package:street_auction/features/splash/domain/entities/app_check_result.dart';
@@ -59,16 +60,16 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
   ) async {
     await AppBottomSheet.show(
       context: context,
-      isDismissible: false,
+      isDismissible: true,
       title: 'New Update',
       body: Text(
         'There is a new version of the app. You can update now or later.',
         style: AppTextStyles.font16GrayRegular,
       ),
       primaryLabel: 'Update Now',
-      onPrimary: () {
-        // TODO: url_launcher → storeUrl
-        Navigator.pop(context, true);
+      onPrimary: () async {
+        await AppUrlLauncher.launch(storeUrl);
+        if (context.mounted) Navigator.pop(context, true);
       },
       secondaryLabel: 'Later',
       onSecondary: () => Navigator.pop(context, false),
