@@ -30,6 +30,7 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
       AppConstants.isFirstTimeKey,
     );
 
+    if (!mounted) return;
     if (isFirstTime == true || isFirstTime == null) {
       context.pushNamedAndRemoveUntil(AppRoutes.onboarding);
     } else {
@@ -46,6 +47,7 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
       AppConstants.refreshTokenKey,
     );
 
+    if (!mounted) return;
     if (token != null && refreshToken != null) {
       context.pushNamedAndRemoveUntil(AppRoutes.home);
     } else {
