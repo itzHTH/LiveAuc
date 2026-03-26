@@ -56,19 +56,18 @@ class MaintenanceScreen extends StatelessWidget {
                 ),
                 const Spacer(flex: 1),
                 SizedBox(height: 32.h),
-                SizedBox(
-                  child: ElevatedButton(
-                    onPressed: () => exit(0),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 52.h),
-                      backgroundColor: AppColor.primary700,
-                    ),
-                    child: Text(
-                      'Close App',
-                      style: AppTextStyles.font18WhiteMedium,
-                    ),
+                ElevatedButton(
+                  onPressed: () => exit(0),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 52.h),
+                    backgroundColor: AppColor.alertInfo,
+                  ),
+                  child: Text(
+                    'Close App',
+                    style: AppTextStyles.font18WhiteMedium,
                   ),
                 ),
+                SizedBox(height: 32.h),
               ],
             ),
           ),

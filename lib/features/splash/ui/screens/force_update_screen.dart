@@ -6,9 +6,14 @@ import 'package:street_auction/core/theme/app_color.dart';
 import 'package:street_auction/core/theme/app_text_styles.dart';
 
 class ForceUpdateScreen extends StatelessWidget {
-  const ForceUpdateScreen({super.key, required this.storeUrl});
+  const ForceUpdateScreen({
+    super.key,
+    required this.storeUrl,
+    required this.message,
+  });
 
   final String storeUrl;
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +53,9 @@ class ForceUpdateScreen extends StatelessWidget {
 
                 // ── Description ───────────────────────────────────────
                 Text(
-                  'Your current version (${AppConstants.appVersion}) is no longer supported. '
-                  'Please update the app to the latest version to continue.',
+                  message ??
+                      'Your current version (${AppConstants.appVersion}) is no longer supported. '
+                          'Please update the app to the latest version to continue.',
                   style: AppTextStyles.font16GrayRegular,
                   textAlign: TextAlign.center,
                 ),

@@ -8,13 +8,15 @@ class MaintenanceMode extends AppCheckResult {
 }
 
 class ForceUpdate extends AppCheckResult {
+  final String message;
   final String storeUrl;
-  const ForceUpdate({required this.storeUrl});
+  const ForceUpdate({required this.message, required this.storeUrl});
 }
 
 class OptionalUpdate extends AppCheckResult {
+  final String message;
   final String storeUrl;
-  const OptionalUpdate({required this.storeUrl});
+  const OptionalUpdate({required this.message, required this.storeUrl});
 }
 
 class AppOk extends AppCheckResult {

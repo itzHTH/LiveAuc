@@ -22,7 +22,9 @@ class GetAppStatusUseCase
         }
         // Force update mode
         else if (data.updateRequired || data.isBanned) {
-          return ApiResults.success(ForceUpdate(storeUrl: data.storeUrl ?? ''));
+          return ApiResults.success(
+            ForceUpdate(message: data.message, storeUrl: data.storeUrl ?? ''),
+          );
         }
         // Optional update mode
         else if (AppVersion.parse(
@@ -30,7 +32,10 @@ class GetAppStatusUseCase
             ).compareTo(AppVersion.parse(data.currentVersion)) <
             0) {
           return ApiResults.success(
-            OptionalUpdate(storeUrl: data.storeUrl ?? ''),
+            OptionalUpdate(
+              message: data.message,
+              storeUrl: data.storeUrl ?? '',
+            ),
           );
         }
         // App is up to date

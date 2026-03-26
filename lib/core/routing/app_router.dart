@@ -54,14 +54,17 @@ class AppRouter {
           ),
         );
       case AppRoutes.forceUpdate:
-        final args = settings.arguments as String;
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (context) => ForceUpdateScreen(storeUrl: args),
+          builder: (context) => ForceUpdateScreen(
+            storeUrl: args['storeUrl'],
+            message: args['message'],
+          ),
         );
       case AppRoutes.maintenance:
-        final message = settings.arguments as String?;
+        final args = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (context) => MaintenanceScreen(message: message),
+          builder: (context) => MaintenanceScreen(message: args),
         );
       case AppRoutes.home:
         return MaterialPageRoute(
