@@ -11,13 +11,19 @@ import 'package:street_auction/features/auth/ui/screens/login_screen.dart';
 import 'package:street_auction/features/auth/ui/screens/register_screen.dart';
 import 'package:street_auction/features/home/ui/screens/home_screen.dart';
 import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
+import 'package:street_auction/features/splash/ui/cubit/app_status_cubit.dart';
 import 'package:street_auction/features/splash/ui/screens/splash_screen.dart';
 
 class AppRouter {
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.splash:
-        return MaterialPageRoute(builder: (context) => const SplashScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => GetIt.instance<AppStatusCubit>(),
+            child: const SplashScreen(),
+          ),
+        );
       case AppRoutes.onboarding:
         return MaterialPageRoute(
           builder: (context) => const OnboardingScreen(),
