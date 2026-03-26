@@ -11,6 +11,8 @@ class AppStatusModel extends AppStatus {
     required super.isBanned,
     required super.message,
     required super.storeUrl,
+    required super.minimumVersion,
+    required super.currentVersion,
   });
 
   factory AppStatusModel.fromJson(Map<String, dynamic> json) =>
@@ -25,6 +27,8 @@ class AppStatusModel extends AppStatus {
       isBanned: isBanned,
       message: message,
       storeUrl: storeUrl,
+      minimumVersion: minimumVersion,
+      currentVersion: currentVersion,
     );
   }
 }

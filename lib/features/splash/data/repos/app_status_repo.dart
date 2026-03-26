@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:street_auction/core/const/app_constants.dart';
 import 'package:street_auction/core/networking/api_results.dart';
 import 'package:street_auction/core/networking/errors/error_handler.dart';
@@ -15,6 +17,7 @@ class AppStatusRepo extends BaseAppStatusRepo {
     try {
       final response = await appStatusService.getAppStatus(
         AppConstants.appVersion,
+        Platform.isAndroid ? 'android' : 'ios',
       );
       return ApiResults.success(response.toEntity());
     } catch (e) {

@@ -20,9 +20,12 @@ class _AppStatusService implements AppStatusService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AppStatusModel> getAppStatus(String clientVersion) async {
+  Future<AppStatusModel> getAppStatus(String clientVersion, String os) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'clientVersion': clientVersion};
+    final queryParameters = <String, dynamic>{
+      r'clientVersion': clientVersion,
+      r'os': os,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<AppStatusModel>(

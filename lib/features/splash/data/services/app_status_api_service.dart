@@ -14,5 +14,6 @@ abstract class AppStatusService {
   @GET(ApiConstants.appStatus)
   Future<AppStatusModel> getAppStatus(
     @Query('clientVersion') String clientVersion,
+    @Query('os') String os,
   );
 }

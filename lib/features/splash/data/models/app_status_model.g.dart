@@ -13,6 +13,8 @@ AppStatusModel _$AppStatusModelFromJson(Map<String, dynamic> json) =>
       isBanned: json['isBanned'] as bool,
       message: json['message'] as String,
       storeUrl: json['storeUrl'] as String?,
+      minimumVersion: json['minimumVersion'] as String,
+      currentVersion: json['currentVersion'] as String,
     );
 
 Map<String, dynamic> _$AppStatusModelToJson(AppStatusModel instance) =>
@@ -22,4 +24,6 @@ Map<String, dynamic> _$AppStatusModelToJson(AppStatusModel instance) =>
       'isBanned': instance.isBanned,
       'message': instance.message,
       'storeUrl': instance.storeUrl,
+      'minimumVersion': instance.minimumVersion,
+      'currentVersion': instance.currentVersion,
     };

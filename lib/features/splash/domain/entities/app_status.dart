@@ -4,6 +4,8 @@ class AppStatus {
   final bool isBanned;
   final String message;
   final String? storeUrl;
+  final String minimumVersion;
+  final String currentVersion;
 
   AppStatus({
     required this.isMaintenance,
@@ -11,5 +13,7 @@ class AppStatus {
     required this.isBanned,
     required this.message,
     required this.storeUrl,
+    required this.minimumVersion,
+    required this.currentVersion,
   });
 }
