@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:street_auction/core/const/app_constants.dart';
 import 'package:street_auction/core/networking/interceptors/auth_interceptors.dart';
+import 'package:street_auction/core/networking/interceptors/force_update_interceptor.dart';
+import 'package:street_auction/core/networking/interceptors/maintenance_interceptor.dart';
 import 'package:street_auction/core/networking/interceptors/version_interceptor.dart';
 import 'api_constants.dart';
 
@@ -44,6 +46,10 @@ class DioFactory {
       AuthInterceptor(),
       // Add version headers to requests
       VersionInterceptor(),
+      // Handle Maintenance Mode
+      MaintenanceInterceptor(),
+      // Handle Force Update
+      ForceUpdateInterceptor(),
       // Logs requests, responses, and errors in a readable format
       PrettyDioLogger(
         requestHeader: true,
