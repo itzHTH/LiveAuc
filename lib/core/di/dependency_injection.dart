@@ -15,11 +15,34 @@ import 'package:street_auction/features/auth/domain/usecases/verfiy_forget_passw
 import 'package:street_auction/features/auth/ui/cubit/forget_password/forget_password_cubit.dart';
 import 'package:street_auction/features/auth/ui/cubit/login/login_cubit.dart';
 import 'package:street_auction/features/auth/ui/cubit/register/register_cubit.dart';
+import 'package:street_auction/features/splash/data/repos/app_status_repo.dart';
+import 'package:street_auction/features/splash/data/services/app_status_api_service.dart';
+import 'package:street_auction/features/splash/domain/repos/base_app_status_repo.dart';
+import 'package:street_auction/features/splash/domain/usecases/get_app_status_use_case.dart';
+import 'package:street_auction/features/splash/ui/cubit/app_status_cubit.dart';
 
 class AppDependencyInjection {
   static void setupGetIt() {
     // Initialize Dio
     GetIt.instance.registerLazySingleton<Dio>(() => DioFactory.instance.dio);
+
+    // Splash (App Status)
+    GetIt.instance.registerLazySingleton<AppStatusService>(
+      () => AppStatusService(GetIt.instance<Dio>()),
+    );
+    GetIt.instance.registerLazySingleton<BaseAppStatusRepo>(
+      () => AppStatusRepo(appStatusService: GetIt.instance<AppStatusService>()),
+    );
+    GetIt.instance.registerLazySingleton<GetAppStatusUseCase>(
+      () => GetAppStatusUseCase(
+        baseAppStatusRepo: GetIt.instance<BaseAppStatusRepo>(),
+      ),
+    );
+    GetIt.instance.registerFactory<AppStatusCubit>(
+      () => AppStatusCubit(
+        getAppStatusUseCase: GetIt.instance<GetAppStatusUseCase>(),
+      ),
+    );
 
     /// Auth
     GetIt.instance.registerLazySingleton<AuthApiService>(
@@ -58,7 +81,6 @@ class AppDependencyInjection {
         GetIt.instance<RegisterUseCase>(),
       ),
     );
-
     // Forget Password
     GetIt.instance.registerLazySingleton<RequestForgetPasswordOtpUseCase>(
       () => RequestForgetPasswordOtpUseCase(GetIt.instance<BaseAuthRepo>()),
