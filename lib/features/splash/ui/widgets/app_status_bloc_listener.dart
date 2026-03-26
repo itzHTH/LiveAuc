@@ -100,8 +100,10 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
                 _showOptionalUpdateSheet(context, data.storeUrl);
               case MaintenanceMode data:
                 debugPrint("MaintenanceMode: ${data.message}");
-              // TODO: Navigate to maintenance screen
-              // context.pushNamedAndRemoveUntil(AppRoutes.maintenance);
+                context.pushNamedAndRemoveUntil(
+                  AppRoutes.maintenance,
+                  arguments: data.message,
+                );
               case AppOk():
                 debugPrint("AppOk");
                 _checkFirstTimeAndTokens();

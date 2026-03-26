@@ -13,6 +13,7 @@ import 'package:street_auction/features/home/ui/screens/home_screen.dart';
 import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
 import 'package:street_auction/features/splash/ui/cubit/app_status_cubit.dart';
 import 'package:street_auction/features/splash/ui/screens/force_update_screen.dart';
+import 'package:street_auction/features/splash/ui/screens/maintenance_screen.dart';
 import 'package:street_auction/features/splash/ui/screens/splash_screen.dart';
 
 class AppRouter {
@@ -56,6 +57,11 @@ class AppRouter {
         final args = settings.arguments as String;
         return MaterialPageRoute(
           builder: (context) => ForceUpdateScreen(storeUrl: args),
+        );
+      case AppRoutes.maintenance:
+        final message = settings.arguments as String?;
+        return MaterialPageRoute(
+          builder: (context) => MaintenanceScreen(message: message),
         );
       case AppRoutes.home:
         return MaterialPageRoute(
