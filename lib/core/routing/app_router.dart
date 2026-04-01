@@ -62,7 +62,7 @@ class AppRouter {
           ),
         );
       case AppRoutes.maintenance:
-        final args = settings.arguments as String;
+        final args = settings.arguments as String?;
         return MaterialPageRoute(
           builder: (context) => MaintenanceScreen(message: args),
         );
