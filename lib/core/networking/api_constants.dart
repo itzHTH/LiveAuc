@@ -1,5 +1,7 @@
+import 'package:street_auction/flavors/flavors_config.dart';
+
 class ApiConstants {
-  static const String baseUrl = 'https://apiservice.ddns.net';
+  static String get baseUrl => FlavorConfig.instance.baseUrl;
   static const String apiVersion = '1.0';
   static const String acceptEncoding = 'br';
 
