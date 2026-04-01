@@ -12,7 +12,7 @@ import 'package:street_auction/features/auth/data/models/logout_models/logout_re
 import 'package:street_auction/features/auth/data/models/register_models/register_requset_body.dart';
 part 'auth_api_service.g.dart';
 
-@RestApi(baseUrl: ApiConstants.baseUrl)
+@RestApi()
 abstract class AuthApiService {
   factory AuthApiService(Dio dio, {String baseUrl}) = _AuthApiService;
 
