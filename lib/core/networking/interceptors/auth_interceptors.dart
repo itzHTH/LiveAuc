@@ -9,9 +9,12 @@ import 'package:street_auction/core/routing/app_routes_name.dart';
 
 class AuthInterceptor extends Interceptor {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     options.headers['Authorization'] =
-        'Bearer ${AppLocalCache.getSecuredString(AppConstants.tokenKey)}';
+        'Bearer ${await AppLocalCache.getSecuredString(AppConstants.tokenKey) ?? ""}';
     super.onRequest(options, handler);
   }
 
