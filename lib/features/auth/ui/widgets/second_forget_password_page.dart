@@ -56,7 +56,6 @@ class _SecondForgetPasswordPageState extends State<SecondForgetPasswordPage> {
         Pinput(
           length: 6,
           onCompleted: _onOtpCompleted,
-          onClipboardFound: _onOtpCompleted,
           defaultPinTheme: PinTheme(
             width: 64.w,
             height: 64.h,
