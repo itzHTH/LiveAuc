@@ -9,13 +9,13 @@ void mainCommon({
   required Flavor flavor,
   required String appName,
   required String baseUrl,
-}) {
+}) async {
   FlavorConfig(flavor: flavor, appName: appName, baseUrl: baseUrl);
   WidgetsFlutterBinding.ensureInitialized();
   AppDependencyInjection.setupGetIt();
 
   /// To Fix Fonts not showing on Release Mode
-  ScreenUtil.ensureScreenSize();
+  await ScreenUtil.ensureScreenSize();
 
   runApp(LiveAuctionApp(appRouter: AppRouter()));
 }
