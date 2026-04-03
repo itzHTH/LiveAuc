@@ -27,7 +27,9 @@ class SecondForgetPasswordPage extends StatefulWidget {
 class _SecondForgetPasswordPageState extends State<SecondForgetPasswordPage> {
   Future<void> _onOtpCompleted(String value) async {
     final cubit = context.read<ForgetPasswordCubit>();
-    await cubit.verifyOtp(VerifyEmailOtp(email: widget.email.text, otp: value));
+    await cubit.verifyOtp(
+      VerifyEmailOtp(email: widget.email.text, otp: int.parse(value)),
+    );
 
     if (!context.mounted) return;
     if (cubit.state is FpVerifyOtpSuccess) {
@@ -54,7 +56,6 @@ class _SecondForgetPasswordPageState extends State<SecondForgetPasswordPage> {
         Pinput(
           length: 6,
           onCompleted: _onOtpCompleted,
-          onClipboardFound: _onOtpCompleted,
           defaultPinTheme: PinTheme(
             width: 64.w,
             height: 64.h,
