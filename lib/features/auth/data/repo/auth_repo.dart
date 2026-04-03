@@ -148,7 +148,8 @@ class AuthRepo implements BaseAuthRepo {
     try {
       await _authApiService.logout(
         LogoutRequestBody(
-          token: await AppLocalCache.getSecuredString(
+          token:
+              await AppLocalCache.getSecuredString(
                 AppConstants.refreshTokenKey,
               ) ??
               "",

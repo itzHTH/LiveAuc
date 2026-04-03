@@ -27,7 +27,7 @@ class _SecondRegisterPageState extends State<SecondRegisterPage> {
   Future<void> _onOtpCompleted(String value) async {
     final cubit = context.read<RegisterCubit>();
     await cubit.verifyEmailOtp(
-      VerifyEmailOtp(email: widget.email.text, otp: value),
+      VerifyEmailOtp(email: widget.email.text, otp: int.parse(value)),
     );
 
     if (!context.mounted) return;
@@ -58,7 +58,6 @@ class _SecondRegisterPageState extends State<SecondRegisterPage> {
         Pinput(
           length: 6,
           onCompleted: _onOtpCompleted,
-          onClipboardFound: _onOtpCompleted,
           defaultPinTheme: PinTheme(
             width: 64.w,
             height: 64.h,

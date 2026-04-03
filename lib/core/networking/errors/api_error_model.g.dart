@@ -11,9 +11,10 @@ ApiErrorModel _$ApiErrorModelFromJson(Map<String, dynamic> json) =>
       succeeded: json['succeeded'] as bool?,
       message: json['message'] as String?,
       data: json['data'],
-      errors: (json['errors'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      errors: (json['errors'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, (e as List<dynamic>).map((e) => e as String).toList()),
+      ),
     );
 
 Map<String, dynamic> _$ApiErrorModelToJson(ApiErrorModel instance) =>

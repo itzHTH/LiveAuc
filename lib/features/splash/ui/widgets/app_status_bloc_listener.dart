@@ -90,7 +90,9 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
           case Success(:final appCheckResult):
             switch (appCheckResult) {
               case ForceUpdate data:
-                debugPrint("ForceUpdate: ${data.storeUrl}");
+                if (AppConstants.isDebug) {
+                  debugPrint("🚨 ForceUpdate: ${data.storeUrl}");
+                }
                 context.pushNamedAndRemoveUntil(
                   AppRoutes.forceUpdate,
                   arguments: {
@@ -99,20 +101,28 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
                   },
                 );
               case OptionalUpdate data:
-                debugPrint("OptionalUpdate: ${data.storeUrl}");
+                if (AppConstants.isDebug) {
+                  debugPrint("📱 OptionalUpdate: ${data.storeUrl}");
+                }
                 _showOptionalUpdateSheet(context, data.storeUrl);
               case MaintenanceMode data:
-                debugPrint("MaintenanceMode: ${data.message}");
+                if (AppConstants.isDebug) {
+                  debugPrint("🔧 MaintenanceMode: ${data.message}");
+                }
                 context.pushNamedAndRemoveUntil(
                   AppRoutes.maintenance,
                   arguments: data.message,
                 );
               case AppOk():
-                debugPrint("AppOk");
+                if (AppConstants.isDebug) {
+                  debugPrint("✅ AppOk");
+                }
                 _checkFirstTimeAndTokens();
             }
           case Failure(:final error):
-            debugPrint("Failure: $error");
+            if (AppConstants.isDebug) {
+              debugPrint("❌ Failure: $error");
+            }
           default:
             break;
         }
