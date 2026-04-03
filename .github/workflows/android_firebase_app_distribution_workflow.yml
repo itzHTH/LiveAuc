@@ -17,11 +17,13 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17"
+          cache: "gradle"
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.38.9"
+          cache: true
 
       - name: install Ruby
         uses: ruby/setup-ruby@v1
