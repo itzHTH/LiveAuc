@@ -7,7 +7,7 @@ class ApiErrorModel {
   bool? succeeded;
   String? message;
   dynamic data;
-  List<String>? errors;
+  Map<String, List<String>>? errors;
 
   ApiErrorModel({this.succeeded, this.message, this.data, this.errors});
 

@@ -1,6 +1,6 @@
 class VerifyEmailOtp {
   final String email;
-  final String otp;
+  final int? otp;
 
   VerifyEmailOtp({required this.email, required this.otp});
 }

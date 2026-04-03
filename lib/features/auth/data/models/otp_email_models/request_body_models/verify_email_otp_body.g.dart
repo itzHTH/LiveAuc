@@ -9,7 +9,7 @@ part of 'verify_email_otp_body.dart';
 VerifyEmailOtpBody _$VerifyEmailOtpBodyFromJson(Map<String, dynamic> json) =>
     VerifyEmailOtpBody(
       email: json['email'] as String,
-      otp: json['otp'] as String,
+      otp: (json['otp'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$VerifyEmailOtpBodyToJson(VerifyEmailOtpBody instance) =>

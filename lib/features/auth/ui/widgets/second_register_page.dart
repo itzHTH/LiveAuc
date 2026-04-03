@@ -26,7 +26,9 @@ class SecondRegisterPage extends StatefulWidget {
 class _SecondRegisterPageState extends State<SecondRegisterPage> {
   Future<void> _onOtpCompleted(String value) async {
     final cubit = context.read<RegisterCubit>();
-    await cubit.verifyEmailOtp(VerifyEmailOtp(email: widget.email, otp: value));
+    await cubit.verifyEmailOtp(
+      VerifyEmailOtp(email: widget.email, otp: int.parse(value)),
+    );
 
     if (!context.mounted) return;
 
