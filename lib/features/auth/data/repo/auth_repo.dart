@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:street_auction/core/const/app_constants.dart';
 import 'package:street_auction/core/helpers/app_local_cache.dart';
 import 'package:street_auction/core/networking/api_results.dart';
@@ -25,13 +26,19 @@ class AuthRepo implements BaseAuthRepo {
   AuthRepo(this._authApiService);
 
   @override
-  Future<ApiResults<Auth>> login(LoginRequest loginRequest) async {
+  Future<ApiResults<Auth>> login(
+    LoginRequest loginRequest, {
+    CancelToken? cancelToken,
+  }) async {
     try {
       final body = LoginRequestBody(
         email: loginRequest.email,
         password: loginRequest.password,
       );
-      final response = await _authApiService.login(body);
+      final response = await _authApiService.login(
+        body,
+        cancelToken: cancelToken,
+      );
 
       // Save token and refresh token in local cache
       await AppLocalCache.setSecuredString(
@@ -50,7 +57,10 @@ class AuthRepo implements BaseAuthRepo {
   }
 
   @override
-  Future<ApiResults<Auth>> register(RegisterRequest body) async {
+  Future<ApiResults<Auth>> register(
+    RegisterRequest body, {
+    CancelToken? cancelToken,
+  }) async {
     try {
       final requestBody = RegisterRequestBody(
         password: body.password,
@@ -58,7 +68,10 @@ class AuthRepo implements BaseAuthRepo {
         lastName: body.lastName,
         registerToken: body.registerToken,
       );
-      final response = await _authApiService.register(requestBody);
+      final response = await _authApiService.register(
+        requestBody,
+        cancelToken: cancelToken,
+      );
 
       // Save token and refresh token in local cache
       await AppLocalCache.setSecuredString(
@@ -77,35 +90,16 @@ class AuthRepo implements BaseAuthRepo {
   }
 
   @override
-  Future<ApiResults<Otp>> requestRegisterOtp(RequestEmailOtp body) async {
+  Future<ApiResults<Otp>> requestRegisterOtp(
+    RequestEmailOtp body, {
+    CancelToken? cancelToken,
+  }) async {
     try {
       final requestBody = RequestEmailOtpBody(email: body.email);
 
-      final response = await _authApiService.requestRegisterOtp(requestBody);
-      return ApiResults<Otp>.success(response.toEntity());
-    } catch (e) {
-      return ApiResults<Otp>.failure(ErrorHandler.handle(e));
-    }
-  }
-
-  @override
-  Future<ApiResults<Otp>> verifyRegisterOtp(VerifyEmailOtp body) async {
-    try {
-      final requestBody = VerifyEmailOtpBody(email: body.email, otp: body.otp);
-      final response = await _authApiService.verifyRegisterOtp(requestBody);
-      return ApiResults<Otp>.success(response.toEntity());
-    } catch (e) {
-      return ApiResults<Otp>.failure(ErrorHandler.handle(e));
-    }
-  }
-
-  @override
-  Future<ApiResults<Otp>> requestForgetPasswordOtp(RequestEmailOtp body) async {
-    try {
-      final requestBody = RequestEmailOtpBody(email: body.email);
-
-      final response = await _authApiService.requestForgetPasswordOtp(
+      final response = await _authApiService.requestRegisterOtp(
         requestBody,
+        cancelToken: cancelToken,
       );
       return ApiResults<Otp>.success(response.toEntity());
     } catch (e) {
@@ -114,11 +108,50 @@ class AuthRepo implements BaseAuthRepo {
   }
 
   @override
-  Future<ApiResults<Otp>> verifyForgetPasswordOtp(VerifyEmailOtp body) async {
+  Future<ApiResults<Otp>> verifyRegisterOtp(
+    VerifyEmailOtp body, {
+    CancelToken? cancelToken,
+  }) async {
+    try {
+      final requestBody = VerifyEmailOtpBody(email: body.email, otp: body.otp);
+      final response = await _authApiService.verifyRegisterOtp(
+        requestBody,
+        cancelToken: cancelToken,
+      );
+      return ApiResults<Otp>.success(response.toEntity());
+    } catch (e) {
+      return ApiResults<Otp>.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<ApiResults<Otp>> requestForgetPasswordOtp(
+    RequestEmailOtp body, {
+    CancelToken? cancelToken,
+  }) async {
+    try {
+      final requestBody = RequestEmailOtpBody(email: body.email);
+
+      final response = await _authApiService.requestForgetPasswordOtp(
+        requestBody,
+        cancelToken: cancelToken,
+      );
+      return ApiResults<Otp>.success(response.toEntity());
+    } catch (e) {
+      return ApiResults<Otp>.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<ApiResults<Otp>> verifyForgetPasswordOtp(
+    VerifyEmailOtp body, {
+    CancelToken? cancelToken,
+  }) async {
     try {
       final requestBody = VerifyEmailOtpBody(email: body.email, otp: body.otp);
       final response = await _authApiService.verifyForgetPasswordOtp(
         requestBody,
+        cancelToken: cancelToken,
       );
       return ApiResults<Otp>.success(response.toEntity());
     } catch (e) {
@@ -128,15 +161,19 @@ class AuthRepo implements BaseAuthRepo {
 
   @override
   Future<ApiResults<ForgetPassword>> forgetPassword(
-    ResetPasswordRequest body,
-  ) async {
+    ResetPasswordRequest body, {
+    CancelToken? cancelToken,
+  }) async {
     try {
       final requestBody = ResetPasswordRequestBody(
         email: body.email,
         newPassword: body.password,
         token: body.token,
       );
-      final response = await _authApiService.forgetPassword(requestBody);
+      final response = await _authApiService.forgetPassword(
+        requestBody,
+        cancelToken: cancelToken,
+      );
       return ApiResults<ForgetPassword>.success(response.toEntity());
     } catch (e) {
       return ApiResults<ForgetPassword>.failure(ErrorHandler.handle(e));
@@ -144,7 +181,7 @@ class AuthRepo implements BaseAuthRepo {
   }
 
   @override
-  Future<ApiResults<void>> logout() async {
+  Future<ApiResults<void>> logout({CancelToken? cancelToken}) async {
     try {
       await _authApiService.logout(
         LogoutRequestBody(
@@ -154,6 +191,7 @@ class AuthRepo implements BaseAuthRepo {
               ) ??
               "",
         ),
+        cancelToken: cancelToken,
       );
       await AppLocalCache.clearAllSecuredData();
       return const ApiResults<void>.success(null);

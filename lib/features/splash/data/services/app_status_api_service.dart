@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:retrofit/error_logger.dart';
-import 'package:retrofit/http.dart';
+import 'package:retrofit/retrofit.dart';
 import 'package:street_auction/core/networking/api_constants.dart';
 import 'package:street_auction/features/splash/data/models/app_status_model.dart';
 
@@ -14,6 +13,7 @@ abstract class AppStatusService {
   @GET(ApiConstants.appStatus)
   Future<AppStatusModel> getAppStatus(
     @Query('clientVersion') String clientVersion,
-    @Query('os') String os,
-  );
+    @Query('os') String os, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }

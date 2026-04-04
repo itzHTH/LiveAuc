@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:street_auction/core/const/app_constants.dart';
 import 'package:street_auction/core/networking/api_results.dart';
 import 'package:street_auction/core/networking/errors/error_handler.dart';
@@ -13,11 +14,12 @@ class AppStatusRepo extends BaseAppStatusRepo {
   AppStatusRepo({required this.appStatusService});
 
   @override
-  Future<ApiResults<AppStatus>> getAppStatus() async {
+  Future<ApiResults<AppStatus>> getAppStatus({CancelToken? cancelToken}) async {
     try {
       final response = await appStatusService.getAppStatus(
         AppConstants.appVersion,
         Platform.isAndroid ? 'android' : 'ios',
+        cancelToken: cancelToken,
       );
       return ApiResults.success(response.toEntity());
     } catch (e) {
