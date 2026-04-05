@@ -25,6 +25,10 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   /// Stores the state before loading — used by cancelCurrentRequest()
   ForgetPasswordState _previousState = const ForgetPasswordState.initial();
 
+  /// Stores the reset token from OTP verification
+  String _resetToken = '';
+  String get resetToken => _resetToken;
+
   Future<void> requestOtp(RequestEmailOtp params) async {
     _previousState = state;
     emit(const ForgetPasswordState.loading());
@@ -43,9 +47,10 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     final result = await _verifyOtpUseCase.call(params);
     if (_verifyOtpUseCase.isCancelled) return;
     result.when(
-      success: (otp) => emit(
-        ForgetPasswordState.verifyOtpSuccess(otp.registerToken ?? ''),
-      ),
+      success: (otp) {
+        _resetToken = otp.registerToken ?? '';
+        emit(ForgetPasswordState.verifyOtpSuccess(_resetToken));
+      },
       failure: (error) =>
           emit(ForgetPasswordState.error(error.apiErrorModel.message ?? '')),
     );

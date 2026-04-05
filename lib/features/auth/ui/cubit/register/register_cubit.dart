@@ -25,6 +25,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   /// Stores the register token from OTP verification for state restoration
   String _registerToken = '';
+  String get registerToken => _registerToken;
 
   /// Stores the state before loading — used by cancelCurrentRequest()
   RegisterState _previousState = const RegisterState.initial();

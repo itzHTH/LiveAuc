@@ -74,8 +74,7 @@ class _ThirdRegisterPageState extends State<ThirdRegisterPage> {
                   firstName: _firstNameController.text,
                   lastName: _lastNameController.text,
                   password: _passwordController.text,
-                  registerToken:
-                      (cubit.state as VerifyOtpSuccess).registerToken,
+                  registerToken: cubit.registerToken,
                 ),
               );
             }
