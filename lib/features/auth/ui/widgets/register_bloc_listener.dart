@@ -23,7 +23,12 @@ class RegisterBlocListener extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           loading: () {
-            AppLoadingDialog.show(context);
+            AppLoadingDialog.show(
+              context,
+              onCancel: () {
+                context.read<RegisterCubit>().cancelCurrentRequest();
+              },
+            );
           },
           otpSent: () {
             AppLoadingDialog.hide(context);
@@ -40,8 +45,10 @@ class RegisterBlocListener extends StatelessWidget {
             );
             SchedulerBinding.instance.addPostFrameCallback((_) {
               if (context.mounted) {
-                Navigator.of(context, rootNavigator: true)
-                    .pushReplacementNamed(AppRoutes.home);
+                Navigator.of(
+                  context,
+                  rootNavigator: true,
+                ).pushReplacementNamed(AppRoutes.home);
               }
             });
           },

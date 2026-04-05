@@ -26,7 +26,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   /// Stores the register token from OTP verification for state restoration
   String _registerToken = '';
 
+  /// Stores the state before loading — used by cancelCurrentRequest()
+  RegisterState _previousState = const RegisterState.initial();
+
   Future<void> requestEmailOtp(RequestEmailOtp params) async {
+    _previousState = state;
     emit(const RegisterState.loading());
     final result = await _requestEmailOtpUseCase.call(params);
     if (_requestEmailOtpUseCase.isCancelled) return;
@@ -41,6 +45,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> verifyEmailOtp(VerifyEmailOtp params) async {
+    _previousState = state;
     emit(const RegisterState.loading());
     final result = await _verifyEmailOtpUseCase.call(params);
     if (_verifyEmailOtpUseCase.isCancelled) return;
@@ -56,6 +61,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> register(RegisterRequest params) async {
+    _previousState = state;
     emit(const RegisterState.loading());
     final result = await _registerUseCase.call(params);
     if (_registerUseCase.isCancelled) return;
@@ -69,22 +75,12 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
   }
 
-  /// Cancel OTP request — go back to initial
-  void cancelRequestOtp() {
+  /// Cancel whatever is currently in-flight — restores previous state
+  void cancelCurrentRequest() {
     _requestEmailOtpUseCase.cancel();
-    emit(const RegisterState.initial());
-  }
-
-  /// Cancel OTP verification — go back to otpSent
-  void cancelVerifyOtp() {
     _verifyEmailOtpUseCase.cancel();
-    emit(const RegisterState.otpSent());
-  }
-
-  /// Cancel registration — go back to verifyOtpSuccess
-  void cancelRegister() {
     _registerUseCase.cancel();
-    emit(RegisterState.verifyOtpSuccess(_registerToken));
+    emit(_previousState);
   }
 
   @override

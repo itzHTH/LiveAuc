@@ -22,10 +22,11 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   final VerifyForgetPasswordOtpUseCase _verifyOtpUseCase;
   final ForgetPasswordUseCase _forgetPasswordUseCase;
 
-  /// Stores the token from OTP verification for state restoration
-  String _verifyToken = '';
+  /// Stores the state before loading — used by cancelCurrentRequest()
+  ForgetPasswordState _previousState = const ForgetPasswordState.initial();
 
   Future<void> requestOtp(RequestEmailOtp params) async {
+    _previousState = state;
     emit(const ForgetPasswordState.loading());
     final result = await _requestOtpUseCase.call(params);
     if (_requestOtpUseCase.isCancelled) return;
@@ -37,20 +38,21 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   }
 
   Future<void> verifyOtp(VerifyEmailOtp params) async {
+    _previousState = state;
     emit(const ForgetPasswordState.loading());
     final result = await _verifyOtpUseCase.call(params);
     if (_verifyOtpUseCase.isCancelled) return;
     result.when(
-      success: (otp) {
-        _verifyToken = otp.registerToken ?? '';
-        emit(ForgetPasswordState.verifyOtpSuccess(_verifyToken));
-      },
+      success: (otp) => emit(
+        ForgetPasswordState.verifyOtpSuccess(otp.registerToken ?? ''),
+      ),
       failure: (error) =>
           emit(ForgetPasswordState.error(error.apiErrorModel.message ?? '')),
     );
   }
 
   Future<void> resetPassword(ResetPasswordRequest params) async {
+    _previousState = state;
     emit(const ForgetPasswordState.loading());
     final result = await _forgetPasswordUseCase.call(params);
     if (_forgetPasswordUseCase.isCancelled) return;
@@ -61,22 +63,12 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     );
   }
 
-  /// Cancel OTP request — go back to initial
-  void cancelRequestOtp() {
+  /// Cancel whatever is currently in-flight — restores previous state
+  void cancelCurrentRequest() {
     _requestOtpUseCase.cancel();
-    emit(const ForgetPasswordState.initial());
-  }
-
-  /// Cancel OTP verification — go back to otpSent
-  void cancelVerifyOtp() {
     _verifyOtpUseCase.cancel();
-    emit(const ForgetPasswordState.otpSent());
-  }
-
-  /// Cancel password reset — go back to verifyOtpSuccess
-  void cancelResetPassword() {
     _forgetPasswordUseCase.cancel();
-    emit(ForgetPasswordState.verifyOtpSuccess(_verifyToken));
+    emit(_previousState);
   }
 
   @override

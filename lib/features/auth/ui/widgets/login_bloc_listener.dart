@@ -21,7 +21,12 @@ class LoginBlocListener extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           loading: () {
-            AppLoadingDialog.show(context);
+            AppLoadingDialog.show(
+              context,
+              onCancel: () {
+                context.read<LoginCubit>().cancelLogin();
+              },
+            );
           },
           success: (auth) {
             AppLoadingDialog.hide(context);
