@@ -23,9 +23,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   final VerifyEmailOtpUseCase _verifyEmailOtpUseCase;
   final RegisterUseCase _registerUseCase;
 
+  /// Stores the register token from OTP verification for state restoration
+  String _registerToken = '';
+
   Future<void> requestEmailOtp(RequestEmailOtp params) async {
     emit(const RegisterState.loading());
     final result = await _requestEmailOtpUseCase.call(params);
+    if (_requestEmailOtpUseCase.isCancelled) return;
     result.when(
       success: (data) {
         emit(const RegisterState.otpSent());
@@ -39,9 +43,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> verifyEmailOtp(VerifyEmailOtp params) async {
     emit(const RegisterState.loading());
     final result = await _verifyEmailOtpUseCase.call(params);
+    if (_verifyEmailOtpUseCase.isCancelled) return;
     result.when(
       success: (data) {
-        emit(RegisterState.verifyOtpSuccess(data.registerToken ?? ""));
+        _registerToken = data.registerToken ?? '';
+        emit(RegisterState.verifyOtpSuccess(_registerToken));
       },
       failure: (error) {
         emit(RegisterState.error(error.apiErrorModel.message ?? ""));
@@ -52,6 +58,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> register(RegisterRequest params) async {
     emit(const RegisterState.loading());
     final result = await _registerUseCase.call(params);
+    if (_registerUseCase.isCancelled) return;
     result.when(
       success: (data) {
         emit(RegisterState.registerSuccess(data));
@@ -60,5 +67,31 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(RegisterState.error(error.apiErrorModel.message ?? ""));
       },
     );
+  }
+
+  /// Cancel OTP request — go back to initial
+  void cancelRequestOtp() {
+    _requestEmailOtpUseCase.cancel();
+    emit(const RegisterState.initial());
+  }
+
+  /// Cancel OTP verification — go back to otpSent
+  void cancelVerifyOtp() {
+    _verifyEmailOtpUseCase.cancel();
+    emit(const RegisterState.otpSent());
+  }
+
+  /// Cancel registration — go back to verifyOtpSuccess
+  void cancelRegister() {
+    _registerUseCase.cancel();
+    emit(RegisterState.verifyOtpSuccess(_registerToken));
+  }
+
+  @override
+  Future<void> close() {
+    _requestEmailOtpUseCase.cancel();
+    _verifyEmailOtpUseCase.cancel();
+    _registerUseCase.cancel();
+    return super.close();
   }
 }
