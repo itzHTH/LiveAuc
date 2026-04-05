@@ -22,9 +22,18 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   final VerifyForgetPasswordOtpUseCase _verifyOtpUseCase;
   final ForgetPasswordUseCase _forgetPasswordUseCase;
 
+  /// Stores the state before loading — used by cancelCurrentRequest()
+  ForgetPasswordState _previousState = const ForgetPasswordState.initial();
+
+  /// Stores the reset token from OTP verification
+  String _resetToken = '';
+  String get resetToken => _resetToken;
+
   Future<void> requestOtp(RequestEmailOtp params) async {
+    _previousState = state;
     emit(const ForgetPasswordState.loading());
     final result = await _requestOtpUseCase.call(params);
+    if (_requestOtpUseCase.isCancelled) return;
     result.when(
       success: (_) => emit(const ForgetPasswordState.otpSent()),
       failure: (error) =>
@@ -33,24 +42,45 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   }
 
   Future<void> verifyOtp(VerifyEmailOtp params) async {
+    _previousState = state;
     emit(const ForgetPasswordState.loading());
     final result = await _verifyOtpUseCase.call(params);
+    if (_verifyOtpUseCase.isCancelled) return;
     result.when(
-      success: (otp) => emit(
-        ForgetPasswordState.verifyOtpSuccess(otp.registerToken ?? ''),
-      ),
+      success: (otp) {
+        _resetToken = otp.registerToken ?? '';
+        emit(ForgetPasswordState.verifyOtpSuccess(_resetToken));
+      },
       failure: (error) =>
           emit(ForgetPasswordState.error(error.apiErrorModel.message ?? '')),
     );
   }
 
   Future<void> resetPassword(ResetPasswordRequest params) async {
+    _previousState = state;
     emit(const ForgetPasswordState.loading());
     final result = await _forgetPasswordUseCase.call(params);
+    if (_forgetPasswordUseCase.isCancelled) return;
     result.when(
       success: (_) => emit(const ForgetPasswordState.resetSuccess()),
       failure: (error) =>
           emit(ForgetPasswordState.error(error.apiErrorModel.message ?? '')),
     );
+  }
+
+  /// Cancel whatever is currently in-flight — restores previous state
+  void cancelCurrentRequest() {
+    _requestOtpUseCase.cancel();
+    _verifyOtpUseCase.cancel();
+    _forgetPasswordUseCase.cancel();
+    emit(_previousState);
+  }
+
+  @override
+  Future<void> close() {
+    _requestOtpUseCase.cancel();
+    _verifyOtpUseCase.cancel();
+    _forgetPasswordUseCase.cancel();
+    return super.close();
   }
 }

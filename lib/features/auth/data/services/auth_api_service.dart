@@ -17,32 +17,50 @@ abstract class AuthApiService {
   factory AuthApiService(Dio dio, {String baseUrl}) = _AuthApiService;
 
   @POST(ApiConstants.login)
-  Future<AuthResponseModel> login(@Body() LoginRequestBody body);
+  Future<AuthResponseModel> login(
+    @Body() LoginRequestBody body, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST(ApiConstants.requestRegisterOtp)
-  Future<EmailOtpResponse> requestRegisterOtp(@Body() RequestEmailOtpBody body);
+  Future<EmailOtpResponse> requestRegisterOtp(
+    @Body() RequestEmailOtpBody body, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST(ApiConstants.verifyRegisterOtp)
-  Future<EmailOtpResponse> verifyRegisterOtp(@Body() VerifyEmailOtpBody body);
+  Future<EmailOtpResponse> verifyRegisterOtp(
+    @Body() VerifyEmailOtpBody body, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST(ApiConstants.register)
-  Future<AuthResponseModel> register(@Body() RegisterRequestBody body);
+  Future<AuthResponseModel> register(
+    @Body() RegisterRequestBody body, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST(ApiConstants.requestForgetPasswordOtp)
   Future<EmailOtpResponse> requestForgetPasswordOtp(
-    @Body() RequestEmailOtpBody body,
-  );
+    @Body() RequestEmailOtpBody body, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST(ApiConstants.verifyForgetPasswordOtp)
   Future<EmailOtpResponse> verifyForgetPasswordOtp(
-    @Body() VerifyEmailOtpBody body,
-  );
+    @Body() VerifyEmailOtpBody body, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST(ApiConstants.forgetPassword)
   Future<ForgetPasswordResponse> forgetPassword(
-    @Body() ResetPasswordRequestBody body,
-  );
+    @Body() ResetPasswordRequestBody body, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 
   @POST(ApiConstants.logout)
-  Future<void> logout(@Body() LogoutRequestBody body);
+  Future<void> logout(
+    @Body() LogoutRequestBody body, {
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }

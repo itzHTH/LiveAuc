@@ -23,9 +23,18 @@ class RegisterCubit extends Cubit<RegisterState> {
   final VerifyEmailOtpUseCase _verifyEmailOtpUseCase;
   final RegisterUseCase _registerUseCase;
 
+  /// Stores the register token from OTP verification for state restoration
+  String _registerToken = '';
+  String get registerToken => _registerToken;
+
+  /// Stores the state before loading — used by cancelCurrentRequest()
+  RegisterState _previousState = const RegisterState.initial();
+
   Future<void> requestEmailOtp(RequestEmailOtp params) async {
+    _previousState = state;
     emit(const RegisterState.loading());
     final result = await _requestEmailOtpUseCase.call(params);
+    if (_requestEmailOtpUseCase.isCancelled) return;
     result.when(
       success: (data) {
         emit(const RegisterState.otpSent());
@@ -37,11 +46,14 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> verifyEmailOtp(VerifyEmailOtp params) async {
+    _previousState = state;
     emit(const RegisterState.loading());
     final result = await _verifyEmailOtpUseCase.call(params);
+    if (_verifyEmailOtpUseCase.isCancelled) return;
     result.when(
       success: (data) {
-        emit(RegisterState.verifyOtpSuccess(data.registerToken ?? ""));
+        _registerToken = data.registerToken ?? '';
+        emit(RegisterState.verifyOtpSuccess(_registerToken));
       },
       failure: (error) {
         emit(RegisterState.error(error.apiErrorModel.message ?? ""));
@@ -50,8 +62,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> register(RegisterRequest params) async {
+    _previousState = state;
     emit(const RegisterState.loading());
     final result = await _registerUseCase.call(params);
+    if (_registerUseCase.isCancelled) return;
     result.when(
       success: (data) {
         emit(RegisterState.registerSuccess(data));
@@ -60,5 +74,21 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(RegisterState.error(error.apiErrorModel.message ?? ""));
       },
     );
+  }
+
+  /// Cancel whatever is currently in-flight — restores previous state
+  void cancelCurrentRequest() {
+    _requestEmailOtpUseCase.cancel();
+    _verifyEmailOtpUseCase.cancel();
+    _registerUseCase.cancel();
+    emit(_previousState);
+  }
+
+  @override
+  Future<void> close() {
+    _requestEmailOtpUseCase.cancel();
+    _verifyEmailOtpUseCase.cancel();
+    _registerUseCase.cancel();
+    return super.close();
   }
 }

@@ -4,12 +4,20 @@ import 'package:street_auction/core/theme/app_text_styles.dart';
 
 /// Shows a styled loading dialog.
 /// Call [AppLoadingDialog.show] to display and [AppLoadingDialog.hide] to dismiss.
+///
+/// When [onCancel] is provided, the dialog becomes cancellable:
+/// - A cancel button appears below the spinner
+/// - The back button dismisses the dialog and triggers cancellation
 class AppLoadingDialog {
   AppLoadingDialog._();
 
   static bool _isShowing = false;
 
-  static void show(BuildContext context, {String message = 'Please wait...'}) {
+  static void show(
+    BuildContext context, {
+    String message = 'Please wait...',
+    VoidCallback? onCancel,
+  }) {
     if (_isShowing) return;
     _isShowing = true;
 
@@ -17,7 +25,24 @@ class AppLoadingDialog {
       context: context,
       barrierDismissible: false,
       barrierColor: Colors.black.withValues(alpha: 0.4),
-      builder: (_) => _LoadingDialogContent(message: message),
+      builder: (_) => PopScope(
+        canPop: onCancel != null,
+        onPopInvokedWithResult: (didPop, _) {
+          if (didPop && onCancel != null) {
+            _isShowing = false;
+            onCancel();
+          }
+        },
+        child: _LoadingDialogContent(
+          message: message,
+          onCancel: onCancel != null
+              ? () {
+                  hide(context);
+                  onCancel();
+                }
+              : null,
+        ),
+      ),
     );
   }
 
@@ -29,9 +54,13 @@ class AppLoadingDialog {
 }
 
 class _LoadingDialogContent extends StatelessWidget {
-  const _LoadingDialogContent({required this.message});
+  const _LoadingDialogContent({
+    required this.message,
+    this.onCancel,
+  });
 
   final String message;
+  final VoidCallback? onCancel;
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +100,23 @@ class _LoadingDialogContent extends StatelessWidget {
               style: AppTextStyles.font16GrayRegular,
               textAlign: TextAlign.center,
             ),
+            // Cancel button (only when cancellable)
+            if (onCancel != null) ...[
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: onCancel,
+                child: Text(
+                  'Cancel',
+                  style: AppTextStyles.font16GrayRegular?.copyWith(
+                    color: AppColor.primary700,
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
       ),
     );
   }
 }
+

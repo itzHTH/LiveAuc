@@ -23,7 +23,12 @@ class ForgetPasswordBlocListener extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           loading: () {
-            AppLoadingDialog.show(context);
+            AppLoadingDialog.show(
+              context,
+              onCancel: () {
+                context.read<ForgetPasswordCubit>().cancelCurrentRequest();
+              },
+            );
           },
           otpSent: () {
             AppLoadingDialog.hide(context);
@@ -47,8 +52,10 @@ class ForgetPasswordBlocListener extends StatelessWidget {
             );
             SchedulerBinding.instance.addPostFrameCallback((_) {
               if (context.mounted) {
-                Navigator.of(context, rootNavigator: true)
-                    .pushReplacementNamed(AppRoutes.login);
+                Navigator.of(
+                  context,
+                  rootNavigator: true,
+                ).pushReplacementNamed(AppRoutes.login);
               }
             });
           },
