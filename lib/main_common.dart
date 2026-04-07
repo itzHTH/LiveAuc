@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:street_auction/core/di/dependency_injection.dart';
 import 'package:street_auction/core/routing/app_router.dart';
+import 'package:street_auction/firebase_options.dart';
 import 'package:street_auction/flavors/flavors_config.dart';
 import 'package:street_auction/live_auction_app.dart';
 
@@ -13,6 +15,12 @@ void mainCommon({
   FlavorConfig(flavor: flavor, appName: appName, baseUrl: baseUrl);
   WidgetsFlutterBinding.ensureInitialized();
   AppDependencyInjection.setupGetIt();
+
+  if (flavor == Flavor.production) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
 
   /// To Fix Fonts not showing on Release Mode
   await ScreenUtil.ensureScreenSize();
