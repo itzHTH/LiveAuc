@@ -20,9 +20,13 @@ class _AuthApiService implements AuthApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AuthResponseModel> login(LoginRequestBody body) async {
+  Future<AuthResponseModel> login(
+    LoginRequestBody body, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
@@ -33,6 +37,7 @@ class _AuthApiService implements AuthApiService {
             '/liveauction/Auth/login',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
@@ -48,9 +53,13 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<EmailOtpResponse> requestRegisterOtp(RequestEmailOtpBody body) async {
+  Future<EmailOtpResponse> requestRegisterOtp(
+    RequestEmailOtpBody body, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
@@ -61,6 +70,7 @@ class _AuthApiService implements AuthApiService {
             '/liveauction/Auth/request-register-otp',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
@@ -76,9 +86,13 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<EmailOtpResponse> verifyRegisterOtp(VerifyEmailOtpBody body) async {
+  Future<EmailOtpResponse> verifyRegisterOtp(
+    VerifyEmailOtpBody body, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
@@ -89,6 +103,7 @@ class _AuthApiService implements AuthApiService {
             '/liveauction/Auth/verify-register-otp',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
@@ -104,9 +119,13 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<AuthResponseModel> register(RegisterRequestBody body) async {
+  Future<AuthResponseModel> register(
+    RegisterRequestBody body, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
@@ -117,6 +136,7 @@ class _AuthApiService implements AuthApiService {
             '/liveauction/Auth/register',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
@@ -133,10 +153,12 @@ class _AuthApiService implements AuthApiService {
 
   @override
   Future<EmailOtpResponse> requestForgetPasswordOtp(
-    RequestEmailOtpBody body,
-  ) async {
+    RequestEmailOtpBody body, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
@@ -147,6 +169,7 @@ class _AuthApiService implements AuthApiService {
             '/liveauction/Auth/forgot-password-otp',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
@@ -163,10 +186,12 @@ class _AuthApiService implements AuthApiService {
 
   @override
   Future<EmailOtpResponse> verifyForgetPasswordOtp(
-    VerifyEmailOtpBody body,
-  ) async {
+    VerifyEmailOtpBody body, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
@@ -177,6 +202,7 @@ class _AuthApiService implements AuthApiService {
             '/liveauction/Auth/verify-password-otp',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
@@ -193,10 +219,12 @@ class _AuthApiService implements AuthApiService {
 
   @override
   Future<ForgetPasswordResponse> forgetPassword(
-    ResetPasswordRequestBody body,
-  ) async {
+    ResetPasswordRequestBody body, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
@@ -207,6 +235,7 @@ class _AuthApiService implements AuthApiService {
             '/liveauction/Auth/reset-password',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
@@ -222,9 +251,13 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<void> logout(LogoutRequestBody body) async {
+  Future<void> logout(
+    LogoutRequestBody body, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
@@ -235,6 +268,7 @@ class _AuthApiService implements AuthApiService {
             '/liveauction/Auth/logout',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );

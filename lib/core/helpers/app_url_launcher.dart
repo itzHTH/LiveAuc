@@ -16,4 +16,11 @@ class AppUrlLauncher {
       await launchUrl(uri, mode: LaunchMode.inAppWebView);
     }
   }
+
+  static Future<void> launchEmail(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
 }

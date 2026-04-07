@@ -89,7 +89,7 @@ class _ThirdForgetPasswordPageState extends State<ThirdForgetPasswordPage> {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               final cubit = context.read<ForgetPasswordCubit>();
-              final resetToken = (cubit.state as FpVerifyOtpSuccess).resetToken;
+              final resetToken = cubit.resetToken;
               await cubit.resetPassword(
                 ResetPasswordRequest(
                   email: widget.email.text,

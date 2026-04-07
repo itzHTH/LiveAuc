@@ -20,12 +20,17 @@ class _AppStatusService implements AppStatusService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AppStatusModel> getAppStatus(String clientVersion, String os) async {
+  Future<AppStatusModel> getAppStatus(
+    String clientVersion,
+    String os, {
+    CancelToken? cancelToken,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'clientVersion': clientVersion,
       r'os': os,
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<AppStatusModel>(
@@ -35,6 +40,7 @@ class _AppStatusService implements AppStatusService {
             '/liveauction/AppStatus/check',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );

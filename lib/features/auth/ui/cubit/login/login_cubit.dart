@@ -18,6 +18,8 @@ class LoginCubit extends Cubit<LoginState<Auth>> {
   Future<void> login(LoginRequest request) async {
     emit(const LoginState.loading());
     final result = await loginUseCase.call(request);
+    // If the request was cancelled, don't emit anything
+    if (loginUseCase.isCancelled) return;
     result.when(
       success: (data) {
         emit(LoginState.success(data));
@@ -31,6 +33,7 @@ class LoginCubit extends Cubit<LoginState<Auth>> {
   Future<void> logout() async {
     emit(const LoginState.loading());
     final result = await logoutUseCase.call(null);
+    if (logoutUseCase.isCancelled) return;
     result.when(
       success: (data) {
         emit(const LoginState.logoutSuccess());
@@ -39,5 +42,24 @@ class LoginCubit extends Cubit<LoginState<Auth>> {
         emit(LoginState.error(error.apiErrorModel.message ?? "Unknown Error"));
       },
     );
+  }
+
+  /// Cancel login — goes back to initial (no previous state)
+  void cancelLogin() {
+    loginUseCase.cancel();
+    emit(const LoginState.initial());
+  }
+
+  /// Cancel logout — goes back to initial
+  void cancelLogout() {
+    logoutUseCase.cancel();
+    emit(const LoginState.initial());
+  }
+
+  @override
+  Future<void> close() {
+    loginUseCase.cancel();
+    logoutUseCase.cancel();
+    return super.close();
   }
 }
