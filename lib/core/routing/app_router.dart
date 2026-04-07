@@ -9,6 +9,7 @@ import 'package:street_auction/features/auth/ui/screens/auth_main_screen.dart';
 import 'package:street_auction/features/auth/ui/screens/forget_password_screen.dart';
 import 'package:street_auction/features/auth/ui/screens/login_screen.dart';
 import 'package:street_auction/features/auth/ui/screens/register_screen.dart';
+import 'package:street_auction/features/error/screens/error_screen.dart';
 import 'package:street_auction/features/home/ui/screens/home_screen.dart';
 import 'package:street_auction/features/onborading/screens/onboarding_screen.dart';
 import 'package:street_auction/features/splash/ui/cubit/app_status_cubit.dart';
@@ -73,6 +74,8 @@ class AppRouter {
             child: const HomeScreen(),
           ),
         );
+      case AppRoutes.error:
+        return MaterialPageRoute(builder: (context) => const ErrorScreen());
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
     }
