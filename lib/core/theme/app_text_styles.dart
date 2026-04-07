@@ -57,6 +57,12 @@ class AppTextStyles {
     color: AppColor.uiWhite,
   );
 
+  static TextStyle? font18BlackMedium = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColor.uiBlack,
+  );
+
   static TextStyle? font16WhiteMedium = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
