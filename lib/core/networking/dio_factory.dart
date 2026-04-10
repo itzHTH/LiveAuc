@@ -3,6 +3,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:street_auction/core/const/app_constants.dart';
 import 'package:street_auction/core/networking/interceptors/auth_interceptors.dart';
 import 'package:street_auction/core/networking/interceptors/firebase_app_check_interceptor.dart';
+import 'package:street_auction/core/networking/interceptors/firebase_performance_interceptor.dart';
 import 'package:street_auction/core/networking/interceptors/force_update_interceptor.dart';
 import 'package:street_auction/core/networking/interceptors/maintenance_interceptor.dart';
 import 'package:street_auction/core/networking/interceptors/version_interceptor.dart';
@@ -53,6 +54,8 @@ class DioFactory {
       ForceUpdateInterceptor(),
       // Add Firebase App Check headers to requests
       FirebaseAppCheckInterceptor(),
+      // Add Firebase Performance headers to requests and responses
+      FirebasePerformanceInterceptor(),
       // Logs requests, responses, and errors in a readable format
       PrettyDioLogger(
         requestHeader: true,
