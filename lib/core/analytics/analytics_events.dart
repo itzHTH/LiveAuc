@@ -11,15 +11,21 @@ class AnalyticsEvents {
   static const String resetPasswordSuccess = 'reset_password_success';
 
   // OTP Events
-  static const String otpRequested = 'otp_requested';
-  static const String otpVerified = 'otp_verified';
-  static const String otpFailed = 'otp_failed';
+  static const String forgetPasswordOtpRequested =
+      'forget_password_otp_requested';
+  static const String forgetPasswordOtpVerified =
+      'forget_password_otp_verified';
+  static const String forgetPasswordOtpFailed = 'forget_password_otp_failed';
+  static const String registerOtpRequested = 'register_otp_requested';
+  static const String registerOtpVerified = 'register_otp_verified';
+  static const String registerOtpFailed = 'register_otp_failed';
 
-  // Auction Events
-  static const String auctionViewed = 'auction_viewed';
-  static const String auctionJoined = 'auction_joined';
-  static const String bidPlaced = 'bid_placed';
-  static const String auctionWon = 'auction_won';
+  // App Update Events
+  static const String appUpdateAvailable = 'app_update_available';
+  static const String appUpdateSkipped = 'app_update_skipped';
+  static const String appUpdateForce = 'app_update_force';
+  static const String appUpdateBanned = 'app_update_banned';
+  static const String appMaintenance = 'app_maintenance';
 
   // General Events
   static const String appOpened = 'app_opened';

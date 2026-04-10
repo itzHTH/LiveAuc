@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:street_auction/core/analytics/analytics_events.dart';
+import 'package:street_auction/core/analytics/analytics_service.dart';
 import 'package:street_auction/core/helpers/navigation_extension.dart';
 import 'package:street_auction/core/routing/app_routes_name.dart';
 import 'package:street_auction/core/widgets/app_loading_dialog.dart';
@@ -29,6 +32,7 @@ class LoginBlocListener extends StatelessWidget {
             );
           },
           success: (auth) {
+            GetIt.instance<AnalyticsService>().logLogin(method: 'email');
             AppLoadingDialog.hide(context);
             context.pushReplacementNamed(AppRoutes.home);
             AppSnackBar.showSuccess(
@@ -37,6 +41,10 @@ class LoginBlocListener extends StatelessWidget {
             );
           },
           error: (error) {
+            GetIt.instance<AnalyticsService>().logEvent(
+              name: AnalyticsEvents.loginFailed,
+              parameters: {'error': error},
+            );
             AppLoadingDialog.hide(context);
             AppSnackBar.showError(context: context, message: error);
           },
