@@ -26,6 +26,8 @@ class AnalyticsEvents {
   static const String appUpdateForce = 'app_update_force';
   static const String appUpdateBanned = 'app_update_banned';
   static const String appMaintenance = 'app_maintenance';
+  static const String appFailure = 'app_failure';
+  static const String appOk = 'app_ok';
 
   // General Events
   static const String appOpened = 'app_opened';
