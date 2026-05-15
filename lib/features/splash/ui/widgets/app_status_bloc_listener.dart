@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:street_auction/core/analytics/analytics_events.dart';
+import 'package:street_auction/core/analytics/analytics_service.dart';
 
 import 'package:street_auction/core/const/app_constants.dart';
 import 'package:street_auction/core/helpers/app_local_cache.dart';
@@ -62,7 +65,7 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
   ) async {
     await AppBottomSheet.show(
       context: context,
-      isDismissible: true,
+      isDismissible: false,
       title: 'New Update',
       body: Text(
         'There is a new version of the app. You can update now or later.',
@@ -74,7 +77,13 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
         if (context.mounted) Navigator.pop(context, true);
       },
       secondaryLabel: 'Later',
-      onSecondary: () => Navigator.pop(context, false),
+      onSecondary: () {
+        GetIt.instance<AnalyticsService>().logEvent(
+          name: AnalyticsEvents.appUpdateSkipped,
+          parameters: {'storeUrl': storeUrl},
+        );
+        Navigator.pop(context, false);
+      },
     );
     // After sheet closes (either action), navigate normally
     if (context.mounted) await _checkFirstTimeAndTokens();
@@ -93,6 +102,10 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
                 if (AppConstants.isDebug) {
                   debugPrint("🚨 ForceUpdate: ${data.storeUrl}");
                 }
+                GetIt.instance<AnalyticsService>().logEvent(
+                  name: AnalyticsEvents.appUpdateForce,
+                  parameters: {'storeUrl': data.storeUrl},
+                );
                 context.pushNamedAndRemoveUntil(
                   AppRoutes.forceUpdate,
                   arguments: {
@@ -101,11 +114,20 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
                   },
                 );
               case OptionalUpdate data:
+                GetIt.instance<AnalyticsService>().logEvent(
+                  name: AnalyticsEvents.appUpdateAvailable,
+                  parameters: {'storeUrl': data.storeUrl},
+                );
                 if (AppConstants.isDebug) {
                   debugPrint("📱 OptionalUpdate: ${data.storeUrl}");
                 }
                 _showOptionalUpdateSheet(context, data.storeUrl);
+
               case MaintenanceMode data:
+                GetIt.instance<AnalyticsService>().logEvent(
+                  name: AnalyticsEvents.appMaintenance,
+                  parameters: {'message': data.message},
+                );
                 if (AppConstants.isDebug) {
                   debugPrint("🔧 MaintenanceMode: ${data.message}");
                 }
@@ -117,9 +139,16 @@ class _AppStatusBlocListenerState extends State<AppStatusBlocListener> {
                 if (AppConstants.isDebug) {
                   debugPrint("✅ AppOk");
                 }
+                GetIt.instance<AnalyticsService>().logEvent(
+                  name: AnalyticsEvents.appOk,
+                );
                 _checkFirstTimeAndTokens();
             }
           case Failure(:final error):
+            GetIt.instance<AnalyticsService>().logEvent(
+              name: AnalyticsEvents.appFailure,
+              parameters: {'error': error},
+            );
             if (AppConstants.isDebug) {
               debugPrint("❌ Failure: $error");
             }
